@@ -1,0 +1,126 @@
+.heroSection {
+  min-height: 70vh;
+  width: 100%;
+  
+  background-color: #1e1e1e; // Темний фон
+}
+
+/* --- Навігація справа --- */
+.topNav {
+  z-index: 10;
+
+  .iconBtn {
+    background: #333; 
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #444;
+    }
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+/* --- Центральний Логотип --- */
+.heroContent {
+  z-index: 2;
+
+  .logoBox {
+    background-color: #fff;
+    color: #000;
+    width: 75px;
+    height: 75px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px; // Заокруглені кути квадрата
+    
+    .wLogo {
+      font-family: 'Times New Roman', serif;
+      margin: 0;
+      font-size: 55px;
+      line-height: 1;
+    }
+  }
+
+  .mainTitle {
+    font-size: 100px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e0e0e0;
+  }
+}
+
+/* --- Рядок Пошуку --- */
+.searchContainer {
+  z-index: 2;
+  width: 600px;
+  max-width: 90%;
+  border-bottom: 2px solid #555; // Лінія знизу
+  padding: 10px 0;
+
+  .searchIcon {
+    color: #fff;
+    margin-right: 15px;
+  }
+
+  .divider {
+    height: 24px;
+    width: 2px;
+    background-color: #555;
+    margin-right: 15px;
+  }
+
+  .searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 30px;
+    outline: none;
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+}
+
+/* --- Глобус Вікіпедії --- */
+.bgGlobe {
+  position: absolute;
+  right: -60vw;       // Було -15vw. Тепер ховаємо майже третину глобуса за правий край екрану
+  top: -10vh;           // Трохи підняли, щоб він краще вписувався при таких розмірах
+  width: 90vw;        // Було 60vw. Тепер він займає 85% ширини екрану — це дуже масштабно
+  min-width: 900px;   // Збільшили мінімальний поріг, щоб на телефонах/планшетах він теж був величезним
+  height: auto;
+  z-index: 1;
+  opacity: 0.9;
+  pointer-events: none;
+}
