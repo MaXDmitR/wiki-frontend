@@ -1,0 +1,56 @@
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.articleContainer {
+  flex: 1;
+  
+  padding-top: 1rem; 
+  padding-bottom: 4rem;
+}
+
+.articleGrid {
+  display: grid;
+  
+  grid-template-columns: 300px 1fr 300px; 
+  
+  
+  gap: 1.5rem; 
+  
+ 
+  align-items: stretch; 
+}
+
+
+.leftColumn, .rightColumn {
+  position: sticky;
+  top: 1rem; 
+  height: max-content; 
+}
+
+// АДАПТИВНІСТЬ: Планшети
+@media (max-width: 1024px) {
+  .articleGrid {
+    grid-template-columns: 1fr 300px;
+    
+    .leftColumn {
+      grid-column: 1 / -1; 
+      position: static; 
+      order: 3; 
+    }
+  }
+}
+
+
+@media (max-width: 768px) {
+  .articleGrid {
+    grid-template-columns: 1fr;
+    
+    .rightColumn {
+      position: static;
+      order: 2;
+    }
+  }
+}
