@@ -36,7 +36,7 @@ const CategoriesSection = () => {
             icon={cat.icon}
             nameCategory={cat.name}
             path={cat.path}
-            // НАЙГОЛОВНІШЕ: Якщо дані ще вантажаться, показуємо "...", якщо завантажилися - беремо цифру по id
+            
             countArticles={counts ? counts[cat.id] : "..."} 
           />
         ))}

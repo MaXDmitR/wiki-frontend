@@ -27,7 +27,7 @@ export default function ArticleCard({
         </div>
 
         <div className="article-card__content">
-          {/* 2. ПЕРЕВІР, ЩОБ ДАТИ ТУТ НЕ БУЛО! Тільки заголовок і текст */}
+          
           <h2 className="article-card__title">{title}</h2>
           {paragraphs.map((p, i) => (
             <p key={i} className="article-card__text">{p}</p>

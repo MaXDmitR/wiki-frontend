@@ -1,7 +1,4 @@
-// src/styles/global.scss
 
-// Імпортуємо тільки необхідне з Bootstrap (наприклад, сітку), 
-// щоб він не ламав наші кастомні стилі кнопок та інпутів.
 @import "bootstrap/dist/css/bootstrap-grid.min.css";
 @import "bootstrap/dist/css/bootstrap-utilities.min.css";
 
@@ -12,8 +9,8 @@
 }
 
 body {
-  background-color: #1e1e1e; // Той самий чорний колір з Фігми
+  background-color: #1e1e1e; 
   color: #ffffff;
-  font-family: 'Arial', sans-serif; // Потім заміните на свій шрифт
-  overflow-x: hidden; // Щоб глобус не створював горизонтальний скрол
+  font-family: 'Arial', sans-serif; 
+  overflow-x: hidden; 
 }

@@ -7,18 +7,18 @@ const HeroSection = () => {
   return (
     <section className={`${styles.heroSection} position-relative d-flex flex-column align-items-center justify-content-center`}>
       
-      {/* Навігація справа */}
+      
       <div className={`${styles.topNav} position-absolute top-0 end-0 p-4 d-flex align-items-center gap-3`}>
         <button className={styles.iconBtn}>
           <FaDice size={20} />
         </button>
         <div className={styles.avatar}>
-          {/* Тимчасова лінка на аватарку для тесту */}
+          
           <img src="https://i.pravatar.cc/150?img=47" alt="User Avatar" /> 
         </div>
       </div>
 
-      {/* Центральний контент */}
+      
       <div className={`${styles.heroContent} text-center mt-5`}>
         <div className={`${styles.logoBox} mb-3`}>
           <h1 className={styles.wLogo}>W</h1>
@@ -38,7 +38,7 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* Глобус (Запрацює, коли покладеш globe.png в папку public) */}
+      
       <img src="/globe.png" alt="Wikipedia Globe" className={styles.bgGlobe} />
 
     </section>

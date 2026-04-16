@@ -2,10 +2,10 @@
   min-height: 70vh;
   width: 100%;
   
-  background-color: #1e1e1e; // Темний фон
+  background-color: #1e1e1e;
 }
 
-/* --- Навігація справа --- */
+
 .topNav {
   z-index: 10;
 
@@ -41,7 +41,7 @@
   }
 }
 
-/* --- Центральний Логотип --- */
+
 .heroContent {
   z-index: 2;
 
@@ -54,7 +54,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 16px; // Заокруглені кути квадрата
+    border-radius: 16px; 
     
     .wLogo {
       font-family: 'Times New Roman', serif;
@@ -78,12 +78,12 @@
   }
 }
 
-/* --- Рядок Пошуку --- */
+
 .searchContainer {
   z-index: 2;
   width: 600px;
   max-width: 90%;
-  border-bottom: 2px solid #555; // Лінія знизу
+  border-bottom: 2px solid #555; 
   padding: 10px 0;
 
   .searchIcon {
@@ -112,13 +112,12 @@
   }
 }
 
-/* --- Глобус Вікіпедії --- */
 .bgGlobe {
   position: absolute;
-  right: -60vw;       // Було -15vw. Тепер ховаємо майже третину глобуса за правий край екрану
-  top: -10vh;           // Трохи підняли, щоб він краще вписувався при таких розмірах
-  width: 90vw;        // Було 60vw. Тепер він займає 85% ширини екрану — це дуже масштабно
-  min-width: 900px;   // Збільшили мінімальний поріг, щоб на телефонах/планшетах він теж був величезним
+  right: -60vw;       
+  top: -10vh;          
+  width: 90vw;        
+  min-width: 900px;   
   height: auto;
   z-index: 1;
   opacity: 0.9;

@@ -1,59 +1,57 @@
 .article-card {
   width: 100%;
   position: relative;
-  /* Прибираємо жорсткий фон, щоб він зливався з головним сайтом */
+
   background-color: transparent; 
   padding-top: 200px;
   padding-bottom: 100px;
 }
 
-/* Верхній рядок з написами (Featured Article / Date) */
-/* Старий варіант: justify-content: space-between */
 .article-card__header {
   display: flex;
-  justify-content: flex-end; /* Змінено: тепер дата притиснута до правого краю, але не до самого краю */
+  justify-content: flex-end; 
   align-items: center;
   
 }
 
-/* Новий варіант: justify-content: flex-end + padding-right */
+
 .article-card__date {
   font-size: 14px;
   color: #888;
-  padding-right: 200px; /* Додайте padding-right, щоб посунути дату лівіше. Підберіть значення, яке вам подобається! */
+  padding-right: 200px; 
 }
 
-/* Основний контент */
+
 .article-card__body {
   display: flex;
   align-items: center;
-  gap: 40px; /* Зменшили відступ між квадратом і текстом */
+  gap: 40px; 
 }
 
-/* Світлий квадрат під логотип */
+
 .article-card__logo-wrapper {
   flex-shrink: 0;
   //width: 400px; 
   height: 400px;
-  background-color: #e5e5e5; /* Світло-сірий фон як на макеті */
-  border-radius: 12px; /* Легке заокруглення кутів */
+  background-color: #e5e5e5; 
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px; /* Відступ всередині квадрата, щоб картинка не прилипала до країв */
+  padding: 30px; 
 }
 
 .article-card__logo {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Картинка масштабується, зберігаючи пропорції */
+  object-fit: contain;
 }
 
-/* Блок тексту */
+
 .article-card__content {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Компактніші відступи між рядками */
+  gap: 15px; 
   flex: 1;
 }
 
@@ -67,7 +65,7 @@
 .article-card__text {
   font-size: 20px;
   line-height: 1.6;
-  color: #cccccc; /* Світліший сірий для тексту, щоб краще читалося на чорному */
+  color: #cccccc; 
   max-width: 600px;
   margin: 0;
 }
