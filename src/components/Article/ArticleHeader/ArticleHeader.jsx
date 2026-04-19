@@ -1,12 +1,21 @@
-import React from 'react';
-import styles from './ArticleHeader.module.scss';
+import React from "react";
+import styles from "./ArticleHeader.module.scss";
+import Logo from "../../Logo/Logo";
+import { FaDiceFive, FaSearch } from "react-icons/fa";
+import ArticleSearch from "./ArticleSearch";
+import ArticleRightButtons from "./ArticleRightButtons";
 
 const ArticleHeader = () => {
   return (
-    <div className={styles.headerTest}>
-      <h2>Article Header (React.js)</h2>
-      <p>Тут буде логотип та дата</p>
-    </div>
+    <header className={styles.header}>
+      <div className={`container d-flex gap-3 align-items-center justify-content-between`}>
+        <Logo size="md" expand />
+
+        <ArticleSearch />
+
+        <ArticleRightButtons />
+      </div>
+    </header>
   );
 };
 
