@@ -1,7 +1,13 @@
-.centerTest {
-  background-color: rgba(100, 149, 237, 0.2); // Синій
-  border: 2px dashed cornflowerblue;
-  min-height: 800px; // Текст зазвичай довгий
-  padding: 1rem;
-  border-radius: 12px;
+.title {
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.subTitle {
+  font-size: 32px;
+  color: white;
+  text-align: start;
+  margin-bottom: 8px;
 }
