@@ -1,0 +1,28 @@
+.section {
+  margin-bottom: 30px;
+
+  h2 {
+    font-family: Poppins;
+    font-size: 18px;
+    line-height: 2.6;
+    margin-bottom: 18px;
+    color: black;
+  }
+}
+
+.horizontalLine {
+  display: block;
+  width: 70%;
+  height: 1px;
+  background: #000;
+  margin-bottom: 25px;
+}
+
+.centerText {
+  p {
+    font-family: Poppins;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: black;
+  }
+}
