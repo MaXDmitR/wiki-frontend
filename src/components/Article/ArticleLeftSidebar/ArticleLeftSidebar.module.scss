@@ -1,7 +1,7 @@
-.leftTest {
-  background-color: rgba(60, 179, 113, 0.2); // Зелений
-  border: 2px dashed mediumseagreen;
-  min-height: 500px; // Задаємо висоту, щоб блок не схлопнувся
-  padding: 1rem;
-  border-radius: 12px;
+.Sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 }

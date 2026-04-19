@@ -16,13 +16,13 @@
 }
 
 @media (max-width: 1024px) {
-  .CardsList {
+  .cardsList {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 425px) {
-  .CardsList {
+  .cardsList {
     grid-template-columns: repeat(1, 1fr);
   }
 }
