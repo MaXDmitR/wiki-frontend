@@ -1,12 +1,16 @@
 import React from 'react';
 import styles from './ArticleRightSidebar.module.scss';
+import ArticleContributors from './ArticleContributors';
+import ArticleRelatedTechnologies from './ArticleRelatedTechnologies';
+import ArticleReferences from './ArticleReferences';
 
 const ArticleRightSidebar = () => {
   return (
-    <div className={styles.rightTest}>
-      <h3>Правий Сайдбар</h3>
-      <p>Валєра робить аватарки та лінки тут</p>
-    </div>
+    <aside className={styles.sidebar}>
+      <ArticleContributors />
+      <ArticleRelatedTechnologies />
+      <ArticleReferences />
+    </aside>
   );
 };
 
