@@ -5,15 +5,16 @@ import Article from './pages/Article';
 function App() {
   return (
     <BrowserRouter>
-      <div >
-        
+      <div>
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/article" element={<Article />} />
+            
+            
+            <Route path="/article/:slug" element={<Article />} />
+            
           </Routes>
         </main>
-
       </div>
     </BrowserRouter>
   );

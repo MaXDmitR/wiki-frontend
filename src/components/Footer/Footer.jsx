@@ -7,7 +7,7 @@ const Footer = () => {
       <div className={`container ${styles.inner}`}>
         <div className={styles.logoBox}>
           <Link to="/">
-            <img className={styles.logo} src="imgs/logo.png" alt="Wiki UA" />
+            <img className={styles.logo} src="/imgs/logo.png" alt="Wiki UA" />
           </Link>
         </div>
         <ul className={styles.nav}>
