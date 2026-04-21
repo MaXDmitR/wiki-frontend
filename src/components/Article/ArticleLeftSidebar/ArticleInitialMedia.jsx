@@ -1,12 +1,18 @@
 import styles from "./ArticleInitialMedia.module.scss";
 
-const ArticleInitialMedia = ({ title, img, label }) => {
+const ArticleInitialMedia = ({ img, upperLabel, lowerLabel }) => {
   return (
-    <div>
-      <h3 className={styles.Title}>{title}</h3>
-      <figure>
-        <img className={styles.Picture} src={img} alt={label} />
-        <figcaption className={styles.Label}>{label}</figcaption>
+    <div className={styles.container}>
+      {/* Верхній підпис (description з бекенду) */}
+      {upperLabel && <h3 className={styles.Title}>{upperLabel}</h3>}
+      
+      <figure className={styles.Figure}>
+        <img className={styles.Picture} src={img} alt={lowerLabel || "Article image"} />
+        
+        {/* Нижній підпис (title з бекенду) */}
+        {lowerLabel && (
+          <figcaption className={styles.Label}>{lowerLabel}</figcaption>
+        )}
       </figure>
     </div>
   );
