@@ -1,5 +1,6 @@
 import { FaDiceFive } from "react-icons/fa";
 import styles from "./ArticleRightButtons.module.scss"
+import { Link } from 'react-router-dom';
 
 const ArticleRightButtons = () => {
   return (
@@ -7,9 +8,11 @@ const ArticleRightButtons = () => {
       <button className={styles.iconBtn}>
         <FaDiceFive size={20} />
       </button>
+      <Link to="/auth">
       <div className={styles.avatar}>
         <img src="https://i.pravatar.cc/150?img=47" alt="User Avatar" />
       </div>
+      </Link>
     </div>
   );
 }
