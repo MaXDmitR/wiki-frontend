@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import CategoriesCard from "../CategoriesCard/CategoriesCard";
 import styles from "./CategoriesSection.module.scss";
 // Імпортуємо наш Store (перевір, щоб шлях відповідав твоїй структурі папок)
-import useCategoryStore from '../../store/useCategoryStore'; 
+import useCategoryStore from '../../../store/useCategoryStore'; 
 
 // Створюємо конфіг наших карток. 
 // Ключ 'id' МАЄ точно збігатися з ключами з JSON Тьоми!

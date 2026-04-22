@@ -1,36 +1,34 @@
 import React, { useEffect, useRef } from 'react';
-import HeroSection from '../components/HeroSection/HeroSection';
-import CategoriesSection from '../components/CategoriesSection/CategoriesSection';
-import ArticleCard from '../components/ArticleCard/ArticleCard';
-import useArticleStore from '../store/useArticleStore';
-import useCategoryStore from '../store/useCategoryStore';
-import Footer from '../components/Footer/Footer';
+import HeroSection from '@/components/Home/HeroSection/HeroSection';
+import CategoriesSection from '@/components/Home/CategoriesSection/CategoriesSection';
+import ArticleCard from '@/components/Home/ArticleCard/ArticleCard';
+import useArticleStore from '@/store/useArticleStore';
+import useCategoryStore from '@/store/useCategoryStore';
+import Footer from "@/components/Common/Footer/Footer";
+import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
 
 const Home = () => {
   const { featuredArticle, fetchRandomArticle } = useArticleStore();
   const { counts, fetchCounts } = useCategoryStore();
   
-  // Створюємо "прапорець", щоб запам'ятати, чи ми вже вантажили статтю
   const hasFetchedRandom = useRef(false);
 
   useEffect(() => {
     fetchCounts();
-    // Порожній масив означає: викликати СУВОРО 1 раз при старті
+    
   }, []);
 
   useEffect(() => {
-    // Витягуємо конкретну цифру, а не весь об'єкт
+    
     const total = counts?.totalCount;
 
-    // Якщо цифра є, І ми ще не робили запит (прапорець false)
+  
     if (total > 0 && !hasFetchedRandom.current) {
       fetchRandomArticle(total);
-      
-      // Піднімаємо прапорець! Більше цей if ніколи не спрацює, 
-      // навіть якщо сторінка перемалюється 10 разів
+
       hasFetchedRandom.current = true; 
     }
-    // Слухаємо тільки цифру total
+
   }, [counts?.totalCount, fetchRandomArticle]);
 
   const formattedDate = featuredArticle 
@@ -44,6 +42,7 @@ const Home = () => {
 
   return (
     <div> 
+      <ArticleHeader hasSearch={false} />
       <HeroSection />
       <main className="container position-relative z-3 my-5">
         <div className="mb-5">
