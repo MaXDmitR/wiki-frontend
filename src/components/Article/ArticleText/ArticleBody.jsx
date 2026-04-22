@@ -15,7 +15,7 @@ const ArticleBody = ({ date, content = [] }) => {
       </div>
 
       {content.map((block, index) => {
-        // НОВЕ: Обробка типу 'section' (масив абзаців + заголовок)
+        
         if (block.type === 'section') {
           return (
             <ArticleParagraph 
@@ -26,17 +26,17 @@ const ArticleBody = ({ date, content = [] }) => {
           );
         }
         
-        // Старе: Окремий підзаголовок (якщо він йде без тексту, наприклад, перед слайдером)
+        
         if (block.type === 'header') {
           return (
-            <div key={index} className={styles.section}> {/* Використав клас з твого SCSS */}
+            <div key={index} className={styles.section}> 
               <h2 className={styles.subHeading}>{block.value}</h2>
               <span className={styles.horizontalLine}></span>
             </div>
           );
         }
 
-        // Картинки та слайдери ми тут ігноруємо, бо вони йдуть у лівий сайдбар
+        
         return null;
       })}
     </div>
