@@ -123,3 +123,46 @@
   opacity: 0.9;
   pointer-events: none;
 }
+
+
+/* Додаємо до існуючих стилів */
+.searchResults {
+  position: absolute;
+  top: 110%; /* Опускаємо рівно під інпут */
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+    color: #000;
+  }
+
+  .resultIcon {
+    color: #999;
+  }
+}
+
+.noResults {
+  padding: 15px 20px;
+  color: #777;
+  text-align: center;
+  font-style: italic;
+}

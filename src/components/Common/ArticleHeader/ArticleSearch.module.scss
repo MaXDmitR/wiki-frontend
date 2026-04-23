@@ -30,3 +30,45 @@
     }
   }
 }
+
+.searchResults {
+  position: absolute;
+  top: 110%; /* Опускаємо рівно під інпут хедера */
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 10px; /* Трохи менший радіус для хедера */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px; /* Трохи менші падінги */
+  text-decoration: none;
+  color: #333;
+  font-size: 14px; /* Менший шрифт для хедера */
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+    color: #000;
+  }
+
+  .resultIcon {
+    color: #999;
+  }
+}
+
+.noResults {
+  padding: 12px 15px;
+  color: #777;
+  text-align: center;
+  font-style: italic;
+  font-size: 14px;
+}
