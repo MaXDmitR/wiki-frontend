@@ -23,3 +23,26 @@
   margin-top: 10px;
   color: #a0a0a0; 
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Гарантуємо, що він поверх всього */
+  cursor: pointer; /* Клік поза картинкою закриває */
+}
+
+.fullImage {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 20px;
+  object-fit: contain; /* Зберігаємо пропорції */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  cursor: default; /* На самій картинці pointer не потрібен */
+}

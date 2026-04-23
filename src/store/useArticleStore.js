@@ -10,12 +10,11 @@ const useArticleStore = create((set) => ({
     try {
       
       const response = await api.get('/article/randArticle');
-      
-     
       const article = response.data.data || response.data; 
       
       if (article) {
         set({ featuredArticle: article, isLoading: false });
+        return article;
       } else {
         set({ isLoading: false }); 
       }
