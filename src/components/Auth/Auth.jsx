@@ -4,7 +4,6 @@ const Auth = ({ children }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        {/* Сюди будуть "падати" форми */}
         {children}
       </div>
     </div>

@@ -1,0 +1,22 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(51, 51, 51);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+}
