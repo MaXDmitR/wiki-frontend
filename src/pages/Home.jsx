@@ -3,41 +3,47 @@ import HeroSection from '@/components/Home/HeroSection/HeroSection';
 import CategoriesSection from '@/components/Home/CategoriesSection/CategoriesSection';
 import ArticleCard from '@/components/Home/ArticleCard/ArticleCard';
 import useArticleStore from '@/store/useArticleStore';
-import useCategoryStore from '@/store/useCategoryStore';
+
 import Footer from "@/components/Common/Footer/Footer";
 import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
 
 const Home = () => {
   const { featuredArticle, fetchRandomArticle } = useArticleStore();
-  const { counts, fetchCounts } = useCategoryStore();
-  
   const hasFetchedRandom = useRef(false);
 
   useEffect(() => {
-    fetchCounts();
-    
-  }, []);
 
-  useEffect(() => {
-    
-    const total = counts?.totalCount;
-
-  
-    if (total > 0 && !hasFetchedRandom.current) {
-      fetchRandomArticle(total);
-
+    if (!hasFetchedRandom.current) {
+      fetchRandomArticle();
       hasFetchedRandom.current = true; 
     }
-
-  }, [counts?.totalCount, fetchRandomArticle]);
+  }, [fetchRandomArticle]);
 
   const formattedDate = featuredArticle 
     ? new Date(featuredArticle.date).toLocaleDateString('uk-UA') 
     : '';
 
+
   const getArticleDescription = () => {
-    if (!featuredArticle?.content) return "";
-    return featuredArticle.content[0]?.value;
+    if (!featuredArticle?.content) return "Опис відсутній";
+    
+
+    const firstSection = featuredArticle.content.find(block => block.type === 'section');
+    
+    if (firstSection && firstSection.sectionTexts?.length > 0) {
+      return firstSection.sectionTexts[0]; 
+    }
+    return "Опис відсутній";
+  };
+
+
+  const getArticleImage = () => {
+    if (!featuredArticle?.content) return "/js.svg"; 
+    
+
+    const firstImage = featuredArticle.content.find(block => block.type === 'image');
+    
+    return firstImage ? firstImage.url : "/js.svg";
   };
 
   return (
@@ -50,8 +56,8 @@ const Home = () => {
             <ArticleCard 
               title={featuredArticle.title}
               paragraphs={[getArticleDescription()]} 
-              date={`Was pupliced: ${formattedDate}`}
-              logoSrc="/js.svg" 
+              date={`Was published: ${formattedDate}`}
+              logoSrc={getArticleImage()} 
             />
           ) : (
             <p style={{ color: 'white', textAlign: 'center' }}>Завантаження статті...</p>
