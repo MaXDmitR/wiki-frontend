@@ -1,0 +1,60 @@
+.form {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.placeholder {
+  font-size: 12px;
+  color: #999;
+}
+
+.button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #430c9b;
+  color: white;
+  font-weight: 500;
+  transition: 0.25s ease;
+  cursor: pointer;
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  text-decoration: none;
+  border: none;
+  font-size: 12px;
+  color: #000;
+  background-color: transparent;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    transform: translateX(-2px);
+  }
+}
+
+.backIcon {
+  font-size: 12px;
+  margin-right: 5px;
+}
