@@ -5,6 +5,8 @@ import { api } from '@/services/api';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import styles from "./ArticleSearch.module.scss";
 
+import noResultsMeme from '/noResults.png';
+
 const ArticleSearch = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -96,7 +98,10 @@ const ArticleSearch = () => {
               </Link>
             ))
           ) : (
-            <div className={styles.noResults}>Нічого не знайдено</div>
+            <div className={`${styles.noResultsMemeWrapper} ${styles.noResultsHeader}`}>
+              <img src={noResultsMeme} alt="No results?" className={styles.memeImage} />
+              <h3 className={styles.memeTitle}>no results?</h3>
+            </div>
           )}
         </div>
       )}

@@ -200,3 +200,59 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.noResults {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  
+  padding: 20px; // Робимо великі падінги, щоб не злипалося
+  color: #666;    // Темно-сірий колір, який буде видно на білому фоні
+  font-size: 14px;
+  font-style: italic;
+  background: #ffffff; // Гарантуємо білий фон
+  text-align: center;
+  
+  // Можна додати легку іконку через CSS, якщо не хочеш через JSX
+  svg {
+    color: #ccc;
+  }
+}
+
+.noResultsMemeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: #ffffff; 
+  text-align: center;
+}
+
+// 🪄 МАГІЯ КОМПАКТНОСТІ: Спеціально для хедера
+.noResultsHeader {
+  padding: 15px; // Робимо маленькі відступи, щоб не розпирало
+  gap: 8px;      // Зменшуємо відстань між картинкою і текстом
+  
+  // Робимо саму картинку маленькою
+  .memeImage {
+    max-width: 100px; // Ідеальний розмір для компактного хедера
+    border-radius: 8px; // Гарні заокруглені кути для маленької картинки
+  }
+
+  // Зменшуємо заголовок
+  .memeTitle {
+    font-size: 16px; // Маленький, акуратний шрифт
+    font-weight: 600; // Трохи менш жирний
+  }
+}
+
+.memeTitle {
+  font-family: 'Poppins', sans-serif; // Наш шрифт
+  font-size: 24px;
+  font-weight: 700; // Жирний
+  color: #333; // Темний колір
+  margin: 0;
+  text-transform: lowercase; // Все з маленької літери, як у оригіналі
+}

@@ -5,6 +5,8 @@ import { api } from '@/services/api'; // Твій налаштований axios
 import { useOnClickOutside } from '@/hooks/useOnClickOutside'; // Хук Максима
 import styles from './HeroSection.module.scss';
 
+import noResultsMeme from '/noResults.png';
+
 const HeroSection = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -39,7 +41,7 @@ const HeroSection = () => {
   }, [query]);
 
 
-const getThumbnail = (content) => {
+  const getThumbnail = (content) => {
     if (!content) return "/js.svg";
     const imageBlock = content.find(block => block.type === 'image');
     return imageBlock ? imageBlock.url : "/js.svg";
@@ -67,16 +69,16 @@ const getThumbnail = (content) => {
       </div>
 
       {/* Контейнер пошуку */}
-      <div 
+      <div
         ref={searchRef}
         className={`${styles.searchContainer} mt-4 d-flex align-items-center position-relative`}
       >
         <FaSearch className={styles.searchIcon} size={18} />
         <div className={styles.divider}></div>
-        <input 
-          type="text" 
-          className={styles.searchInput} 
-          placeholder="Search IT Wikipedia..." 
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Search IT Wikipedia..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => { if (results.length > 0) setIsOpen(true) }}
@@ -84,36 +86,39 @@ const getThumbnail = (content) => {
 
         {/* Випадашка з результатами */}
         {/* Випадашка з результатами */}
-{isOpen && (
-  <div className={styles.searchResults}>
-    {results.length > 0 ? (
-      results.map((article) => (
-        <Link 
-          to={`/article/${article.slug}`} 
-          key={article.id} 
-          className={styles.searchResultItem}
-          onClick={() => {
-            setIsOpen(false);
-            setQuery('');
-          }} 
-        >
-          {/* Зліва: Міні-картинка */}
-          <div className={styles.resultThumbnail}>
-            <img src={getThumbnail(article.content)} alt={article.title} />
-          </div>
+        {isOpen && (
+          <div className={styles.searchResults}>
+            {results.length > 0 ? (
+              results.map((article) => (
+                <Link
+                  to={`/article/${article.slug}`}
+                  key={article.id}
+                  className={styles.searchResultItem}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setQuery('');
+                  }}
+                >
+                  {/* Зліва: Міні-картинка */}
+                  <div className={styles.resultThumbnail}>
+                    <img src={getThumbnail(article.content)} alt={article.title} />
+                  </div>
 
-          {/* Справа: Текст */}
-          <div className={styles.resultInfo}>
-            <div className={styles.resultTitle}>{article.title}</div>
-            <div className={styles.resultSnippet}>{getSnippet(article.content)}</div>
+                  {/* Справа: Текст */}
+                  <div className={styles.resultInfo}>
+                    <div className={styles.resultTitle}>{article.title}</div>
+                    <div className={styles.resultSnippet}>{getSnippet(article.content)}</div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className={`${styles.noResultsMemeWrapper} ${styles.noResultsHeader}`}>
+                <img src={noResultsMeme} alt="No results?" className={styles.memeImage} />
+                <h3 className={styles.memeTitle}>no results?</h3>
+              </div>
+            )}
           </div>
-        </Link>
-      ))
-    ) : (
-      <div className={styles.noResults}>Нічого не знайдено</div>
-    )}
-  </div>
-)}
+        )}
       </div>
 
       <img src="/globe.png" alt="Wikipedia Globe" className={styles.bgGlobe} />
