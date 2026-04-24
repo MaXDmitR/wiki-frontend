@@ -1,4 +1,6 @@
 .header {
   padding: 22px 0;
+  position: relative; // Обов'язково, щоб z-index спрацював
+  z-index: 50;        // Ставимо більше ніж 3 (яке стоїть у <main>)
 }
 
