@@ -144,25 +144,59 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 15px 20px;
+  padding: 12px 15px;
   text-decoration: none;
-  color: #333;
-  font-size: 16px;
   transition: background 0.2s ease;
+  border-bottom: 1px solid #f0f0f0; /* Легка лінія між результатами */
 
-  &:hover {
-    background: #f0f0f0;
-    color: #000;
+  &:last-child {
+    border-bottom: none;
   }
 
-  .resultIcon {
-    color: #999;
+  &:hover {
+    background: #f8f9fa; /* Світло-сірий фон при наведенні */
   }
 }
 
-.noResults {
-  padding: 15px 20px;
+/* Квадратна мініатюра */
+.resultThumbnail {
+  flex-shrink: 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  background: #f0f0f0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ідеально заповнює квадрат без розтягування */
+  }
+}
+
+/* Контейнер для тексту */
+.resultInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden; /* Щоб занадто довгий текст не вилазив за рамки */
+}
+
+/* Виділений заголовок */
+.resultTitle {
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Додає три крапки, якщо не влізло */
+}
+
+/* Сірий уривок тексту */
+.resultSnippet {
+  font-size: 12px;
   color: #777;
-  text-align: center;
-  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

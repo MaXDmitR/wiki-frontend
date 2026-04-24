@@ -35,36 +35,64 @@ const ArticleSearch = () => {
     return () => clearTimeout(timer);
   }, [query]);
 
+
+
+  const getThumbnail = (content) => {
+    if (!content) return "/js.svg";
+    const imageBlock = content.find(block => block.type === 'image');
+    return imageBlock ? imageBlock.url : "/js.svg";
+  };
+
+  // Дістаємо уривок тексту (максимум 70 символів, щоб красиво влізло)
+  const getSnippet = (content) => {
+    if (!content) return "";
+    const section = content.find(block => block.type === 'section');
+    if (section && section.sectionTexts?.length > 0) {
+      const text = section.sectionTexts[0];
+      return text.length > 70 ? text.substring(0, 70) + '...' : text;
+    }
+    return "Опис відсутній";
+  };
+
   return (
     // Додали position-relative та ref для кліку зовні
     <div ref={searchRef} className={`${styles.searchContainer} d-flex align-items-center position-relative`}>
       <FaSearch className={styles.searchIcon} size={18} />
       <div className={styles.divider}></div>
-      <input 
-        type="text" 
-        className={styles.searchInput} 
-        placeholder="Search IT Wikipedia..." 
+      <input
+        type="text"
+        className={styles.searchInput}
+        placeholder="Search IT Wikipedia..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => { if (results.length > 0) setIsOpen(true) }}
       />
 
       {/* Випадашка з результатами */}
+      {/* Випадашка з результатами */}
       {isOpen && (
         <div className={styles.searchResults}>
           {results.length > 0 ? (
             results.map((article) => (
-              <Link 
-                to={`/article/${article.slug}`} 
-                key={article.id} 
+              <Link
+                to={`/article/${article.slug}`}
+                key={article.id}
                 className={styles.searchResultItem}
                 onClick={() => {
                   setIsOpen(false);
-                  setQuery(''); // Очищаємо інпут після переходу на сторінку
-                }} 
+                  setQuery('');
+                }}
               >
-                <FaSearch size={12} className={styles.resultIcon} />
-                <span>{article.title}</span>
+                {/* Зліва: Міні-картинка */}
+                <div className={styles.resultThumbnail}>
+                  <img src={getThumbnail(article.content)} alt={article.title} />
+                </div>
+
+                {/* Справа: Текст */}
+                <div className={styles.resultInfo}>
+                  <div className={styles.resultTitle}>{article.title}</div>
+                  <div className={styles.resultSnippet}>{getSnippet(article.content)}</div>
+                </div>
               </Link>
             ))
           ) : (

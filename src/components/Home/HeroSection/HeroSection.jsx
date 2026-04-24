@@ -38,6 +38,24 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, [query]);
 
+
+const getThumbnail = (content) => {
+    if (!content) return "/js.svg";
+    const imageBlock = content.find(block => block.type === 'image');
+    return imageBlock ? imageBlock.url : "/js.svg";
+  };
+
+  // Дістаємо уривок тексту (максимум 70 символів, щоб красиво влізло)
+  const getSnippet = (content) => {
+    if (!content) return "";
+    const section = content.find(block => block.type === 'section');
+    if (section && section.sectionTexts?.length > 0) {
+      const text = section.sectionTexts[0];
+      return text.length > 70 ? text.substring(0, 70) + '...' : text;
+    }
+    return "Опис відсутній";
+  };
+
   return (
     <section className={`${styles.heroSection} position-relative d-flex flex-column align-items-center justify-content-center`}>
       <div className={`${styles.heroContent} text-center mt-5`}>
@@ -65,26 +83,37 @@ const HeroSection = () => {
         />
 
         {/* Випадашка з результатами */}
-        {isOpen && (
-          <div className={styles.searchResults}>
-            {results.length > 0 ? (
-              results.map((article) => (
-                <Link 
-                  to={`/article/${article.slug}`} 
-                  key={article.id} 
-                  className={styles.searchResultItem}
-                  onClick={() => setIsOpen(false)} // Ховаємо меню при переході
-                >
-                  {/* Іконка лупи для краси */}
-                  <FaSearch size={12} className={styles.resultIcon} />
-                  <span>{article.title}</span>
-                </Link>
-              ))
-            ) : (
-              <div className={styles.noResults}>Нічого не знайдено</div>
-            )}
+        {/* Випадашка з результатами */}
+{isOpen && (
+  <div className={styles.searchResults}>
+    {results.length > 0 ? (
+      results.map((article) => (
+        <Link 
+          to={`/article/${article.slug}`} 
+          key={article.id} 
+          className={styles.searchResultItem}
+          onClick={() => {
+            setIsOpen(false);
+            setQuery('');
+          }} 
+        >
+          {/* Зліва: Міні-картинка */}
+          <div className={styles.resultThumbnail}>
+            <img src={getThumbnail(article.content)} alt={article.title} />
           </div>
-        )}
+
+          {/* Справа: Текст */}
+          <div className={styles.resultInfo}>
+            <div className={styles.resultTitle}>{article.title}</div>
+            <div className={styles.resultSnippet}>{getSnippet(article.content)}</div>
+          </div>
+        </Link>
+      ))
+    ) : (
+      <div className={styles.noResults}>Нічого не знайдено</div>
+    )}
+  </div>
+)}
       </div>
 
       <img src="/globe.png" alt="Wikipedia Globe" className={styles.bgGlobe} />
