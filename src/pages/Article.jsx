@@ -15,7 +15,8 @@ const Article = () => {
   const { slug } = useParams(); 
   
 
-  const { article, isLoading, error, fetchArticleBySlug } = useSingleArticleStore();
+  
+  const { article, relatedArticles, isLoading, error, fetchArticleBySlug } = useSingleArticleStore();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -81,6 +82,7 @@ const Article = () => {
               contributors={article.contributors} 
               categories={article.categories} 
               references={article.references} 
+              relatedArticles={relatedArticles}
             />
           </aside>
 

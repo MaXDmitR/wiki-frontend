@@ -1,27 +1,34 @@
 import { create } from 'zustand';
-import axios from 'axios'; // Переконайся, що axios встановлено (npm install axios), або заміни на fetch, якщо юзаєте його
+import { api } from '@/services/api'; 
 
 const useSingleArticleStore = create((set) => ({
-  // Початковий стан
   article: null,
+  relatedArticles: [], // 👈 НОВЕ: додаємо місце для зберігання подібних статей
   isLoading: false,
   error: null,
 
-  // Екшен для завантаження статті
   fetchArticleBySlug: async (slug) => {
-    // Перед початком запиту скидаємо старі дані і вмикаємо лоадер
-    set({ isLoading: true, error: null, article: null }); 
-    
+    set({ isLoading: true, error: null });
     try {
-      // Робимо запит на бекенд, підставляючи slug з URL
-      const response = await axios.get(`https://wikipedianestjsbackend.onrender.com/article/${slug}`);
+      const response = await api.get(`/article/${slug}`);
       
-      // Зберігаємо отриману статтю в стейт і вимикаємо лоадер
-      set({ article: response.data, isLoading: false });
+      // Дістаємо дані (враховуємо, якщо NestJS загортає все у поле data)
+      const data = response.data.data || response.data;
+
+      // Тепер розпаковуємо матрьошку Артема:
+      if (data && data.article) {
+        set({ 
+          article: data.article,         // 👈 Кладемо саму статтю
+          relatedArticles: data.related, // 👈 Зберігаємо масив подібних статей
+          isLoading: false 
+        });
+      } else {
+        // Fallback на випадок якщо структура інша
+        set({ article: data, isLoading: false }); 
+      }
     } catch (error) {
-      console.error('Помилка при завантаженні статті:', error);
-      // Якщо стаття не знайдена (404) або впав сервер
-      set({ error: 'На жаль, статтю не знайдено або сталася помилка сервера.', isLoading: false });
+      console.error('Помилка завантаження статті:', error);
+      set({ error: 'Не вдалося завантажити статтю', isLoading: false });
     }
   },
 }));
