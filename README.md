@@ -1,16 +1,108 @@
-# React + Vite
+# IT WIKI — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**IT WIKI** —  це сучасна освітня платформа для ІТ-фахівців, розроблена за принципами Wikipedia. Проєкт реалізований як Single Page Application (SPA) з використанням архітектури розділеного фронтенду та бекенду.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** [IT WIKI на Vercel](https://wiki-frontend-gamma.vercel.app/)  
+🔗 **Backend API:** [NestJS Server on Render](https://wikipedianestjsbackend.onrender.com/api)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## :hammer: Технологічний стек
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Core:** React 19 + Vite (швидка збірка та HMR).
+* **State Management:** Zustand (легковажне керування глобальним станом додатка).
+* **Styling:** Sass (SCSS) + Bootstrap 5 (гнучка сітка та кастомні стилі).
+* **UI/UX Components:**
+    * **Framer Motion** — складна анімація інтерфейсу та модальних вікон.
+    * **Swiper** — інтерактивні слайдери для медіа-контенту.
+    * **React Icons** — бібліотека іконок.
+* **Forms & Validation:** React Hook Form.
+* **Networking:** Axios (взаємодія з REST API).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## :file_folder: Структура проєкту
+
+```text
+src/
+├── assets/     # Статичні файли (зображення, іконки)
+├── components/ # Компоненти (Common, Auth, Article модулі)
+├── hooks/      # Кастомні React хуки
+├── pages/      # Сторінки додатку (Home, Article, Auth)
+├── services/   # Логіка взаємодії з API (Axios instances)
+├── store/      # Глобальний стан (Zustand)
+├── styles/     # Глобальні стилі та змінні SCSS
+├── App.jsx     # Основний компонент маршрутизації
+└── main.jsx    # Точка входу
+```
+
+
+---
+
+
+## Основні функції та можливості
+
+* **Динамічна система статей:** Повноцінна сторінка статті з розподілом на основний контент, медіа-галереї та допоміжні бічні панелі.
+* **Розумний Header:** Контекстне відображення залежно від стану авторизації користувача (Гість / Авторизований юзер) з анімованою випадашкою профілю.
+* **Авторизація та профілі:** Реалізована форма реєстрації та логіну з валідацією та підтримкою аватарів користувачів.
+* **Масштабованість:** База даних наповнена 100 тематичними статтями.
+* **«Випадкова стаття»:** Реалізована кнопка у формі гральних кубиків поруч із профілем. Вона дозволяє користувачеві миттєво відкрити випадкову статтю з бази даних.
+---
+
+## Архітектура сторінки Article
+
+Сторінка статті розділена на незалежні компоненти для кращої підтримки коду:
+* **ArticleLeftSidebar:** Головне медіа, системна інформація та слайдери.
+* **ArticleText:** Центральна контентна частина зі структурованим текстом.
+* **ArticleRightSidebar:** Списки авторів, схожі технології та посилання на джерела.
+
+---
+
+## :busts_in_silhouette: Команда проєкту та розподіл обов'язків
+
+| Учасник | Роль та внесок у проєкт |
+| :--- | :--- |
+| **Максим Дмитренко** | **Lead / UI Designer.** Дизайн у Figma, архітектура проєкту, структура папок, налаштування API запитів. |
+| **Максим Дробот** | **Frontend Developer.** Логіка хедера, стан авторизації (Auth State), анімовані меню та робота з моками. |
+| **Валерій Гашук** | **Frontend Developer.** Верстка центральної частини статті та розробка форм реєстрації/входу. |
+| **В'ячеслав Ворона** | **Frontend Developer.** Розробка правої панелі статті, блоків контриб’юторів та джерел. |
+| **Олег Довгаль** | **DevOps / Content.** Хостинг бекенду та БД, наповнення контентом (100 статей). |
+| **Андрій Бухановський**| **Backend Developer.** Логіка реєстрації та автентифікації на сервері. |
+| **Артем Хрустальов** | **Backend Developer.** Проєктування бази даних та розробка REST API ендпоінтів. |
+| **Дмитро Ткаченко** | **Documentation.** Створення технічної документації та README репозиторію. |
+
+---
+
+## :rocket: Встановлення та запуск
+
+Для запуску проєкту локально виконайте наступні кроки:
+
+1. **Клонуйте репозиторій:**
+   ```bash
+   git clone https://github.com/MaXDmitR/wiki-frontend.git
+   cd wiki-frontend
+   ```
+
+2. **Встановіть залежності:**
+   ```bash
+   npm install
+   ```
+
+3. **Налаштування середовища (Optional):**
+   Якщо ви хочете змінити адресу бекенду, створіть файл `.env` у кореневій папці та додайте:
+   ```env
+   VITE_API_URL=https://wikipedianestjsbackend.onrender.com/api
+   ```
+
+4. **Запустіть проєкт:**
+   ```bash
+   npm run dev
+   ```
+
+
+---
+
+
+## :mortar_board: Навчальний проєкт
+Цей проєкт реалізовано в рамках навчального процесу **Черкаського державного технологічного університету (ЧДТУ)**. 
