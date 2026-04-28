@@ -4,6 +4,7 @@ import AvatarUpload from "../AvatarUpload/AvatarUpload";
 import styles from "./RegisterForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import useAuthStore from "@/store/useAuthStore"; // 👈 Імпортуємо наш стор
 
 const RegisterForm = () => {
   const {
@@ -15,6 +16,9 @@ const RegisterForm = () => {
     mode: "onChange",
   });
 
+  // 👈 Дістаємо функцію реєстрації та стани зі стора
+  const { registerUser, isLoading, error: authError } = useAuthStore();
+
   const password = watch("password");
   const avatar = watch("avatar");
   const nickname = watch("nickname");
@@ -23,30 +27,39 @@ const RegisterForm = () => {
   
   const navigate = useNavigate();
 
+  // 👈 Додаємо перевірку на isLoading, щоб блокувати кнопку під час запиту
   const isDisabled =
     !avatar?.length ||
     !nickname ||
     !email ||
     !password ||
     !confirmPassword ||
-    Object.keys(errors).length !== 0;
+    Object.keys(errors).length !== 0 ||
+    isLoading;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const file = data.avatar?.[0];
 
-    console.log("FORM DATA:", {
-      ...data,
+    // 👈 Викликаємо нашу реальну функцію зі стора
+    const success = await registerUser({
+      email: data.email,
+      password: data.password,
+      nickname: data.nickname,
       avatar: file,
     });
 
-    alert("registration successful");
+    // 👈 Якщо бекенд відповів успіхом і ми залогінились, кидаємо на головну
+    if (success) {
+      navigate("/");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        <FaArrowLeft className={styles.backIcon} ></FaArrowLeft> Go Back
+      {/* Додав type="button", щоб клік по цій кнопці випадково не відправляв форму */}
+      <button type="button" className={styles.backButton} onClick={() => navigate(-1)}>
+        <FaArrowLeft className={styles.backIcon} /> Go Back
       </button>
 
       <h3 className={styles.title}>Create Account</h3>
@@ -117,11 +130,19 @@ const RegisterForm = () => {
         error={errors.confirmPassword?.message}
       />
 
+      {/* 👈 Виводимо помилку з бекенду, якщо вона є (наприклад, "Користувач вже існує") */}
+      {authError && (
+        <div style={{ color: '#ff4d4f', fontSize: '14px', textAlign: 'center', margin: '10px 0' }}>
+          {authError}
+        </div>
+      )}
+
       <button
         className={styles.button}
         disabled={isDisabled}
       >
-        Sign Up
+        {/* 👈 Міняємо текст кнопки під час завантаження */}
+        {isLoading ? "Signing Up..." : "Sign Up"}
       </button>
     </form>
   );

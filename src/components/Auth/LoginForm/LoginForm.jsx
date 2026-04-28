@@ -3,6 +3,7 @@ import AuthInput from "../AuthInput/AuthInput";
 import styles from "./LoginForm.module.scss";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "@/store/useAuthStore"; // 👈 Імпортуємо наш стор
 
 const LoginForm = () => {
   const {
@@ -14,24 +15,37 @@ const LoginForm = () => {
     mode: "onChange",
   });
 
+  // 👈 Дістаємо функцію логіну та стани зі стора
+  const { loginUser, isLoading, error: authError } = useAuthStore();
+
   const email = watch("email");
   const password = watch("password");
 
   const navigate = useNavigate();
 
+  // 👈 Блокуємо кнопку під час завантаження
   const isDisabled =
-    !email || !password || Object.keys(errors).length !== 0;
+    !email || !password || Object.keys(errors).length !== 0 || isLoading;
 
-  const onSubmit = (data) => {
-    console.log("LOGIN DATA:", data);
-    alert("login successful");
+  const onSubmit = async (data) => {
+    // 👈 Викликаємо реальну функцію логіну
+    const success = await loginUser({
+      email: data.email,
+      password: data.password,
+    });
+
+    // 👈 Якщо все ок, перекидаємо на головну
+    if (success) {
+      navigate("/");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        <FaArrowLeft className={styles.backIcon} ></FaArrowLeft> Go Back
+      {/* Додали type="button", щоб не сабмітило форму при кліку назад */}
+      <button type="button" className={styles.backButton} onClick={() => navigate(-1)}>
+        <FaArrowLeft className={styles.backIcon} /> Go Back
       </button>
 
       <h3 className={styles.title}>Sign In</h3>
@@ -73,11 +87,19 @@ const LoginForm = () => {
         error={errors.password?.message}
       />
 
+      {/* 👈 Виводимо помилку від бекенду (наприклад, "Невірний пароль") */}
+      {authError && (
+        <div style={{ color: '#ff4d4f', fontSize: '14px', textAlign: 'center', margin: '10px 0' }}>
+          {authError}
+        </div>
+      )}
+
       <button
         className={styles.button}
         disabled={isDisabled}
       >
-        Sign In
+        {/* 👈 Анімація тексту кнопки */}
+        {isLoading ? "Signing In..." : "Sign In"}
       </button>
     </form>
   );
