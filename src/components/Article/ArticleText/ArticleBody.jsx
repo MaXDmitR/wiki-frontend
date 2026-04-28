@@ -30,7 +30,6 @@ const ArticleBody = ({ date, content = [] }) => {
         if (block.type === 'header') {
           return (
             <div key={index} className={styles.section}> 
-              <h2 className={styles.subHeading}>{block.value}</h2>
               <span className={styles.horizontalLine}></span>
             </div>
           );

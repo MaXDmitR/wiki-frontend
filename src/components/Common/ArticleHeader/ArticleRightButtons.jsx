@@ -11,7 +11,7 @@ const ArticleRightButtons = () => {
   const { isAuthenticated, toggleDevAuth, user } = useAuthStore();
   const { fetchRandomArticle } = useArticleStore(); // Дістаємо функцію пошуку
   const navigate = useNavigate(); // Для перенаправлення
-  
+
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -27,10 +27,10 @@ const ArticleRightButtons = () => {
 
   return (
     <div className={`${styles.topNav} d-flex align-items-center gap-3 position-relative`}>
-      
-      <button 
-        onClick={toggleDevAuth} 
-        className="btn btn-sm btn-danger position-absolute" 
+
+      <button
+        onClick={toggleDevAuth}
+        className="btn btn-sm btn-danger position-absolute"
         style={{ top: '-40px', right: '0', fontSize: '10px', whiteSpace: 'nowrap' }}
       >
         DEV: Змінити статус
@@ -51,17 +51,23 @@ const ArticleRightButtons = () => {
       ) : (
         <div className={styles.userWrapper} ref={dropdownRef}>
           <div className={styles.avatarMini} onClick={() => setOpen((prev) => !prev)}>
-            <img src={user.avatar} alt={user.name} />
+            <img
+              src={user?.avatar?.url || 'https://i.pravatar.cc/150?img=47'}
+              alt={user?.name || user?.nickname || 'User'}
+            />
           </div>
 
           <div className={`${styles.dropdown} ${open ? styles.open : styles.closed}`}>
             <div className={styles.avatar}>
-              <img src={user.avatar} alt={user.name} />
+              <img
+                src={user?.avatar?.url || 'https://i.pravatar.cc/150?img=47'}
+                alt={user?.name || user?.nickname || 'User'}
+              />
             </div>
             <p className={styles.name}>{user.name}</p>
-            <button className={styles.btn}>
+            {/*<button className={styles.btn}>
               Подивитися профіль
-            </button>
+            </button>*/}
             <button className={`${styles.btn} ${styles.btnDanger}`} onClick={toggleDevAuth}>
               Вийти
             </button>
