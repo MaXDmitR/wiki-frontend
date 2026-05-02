@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './EditRightSidebar.module.scss';
 import EditCategories from './EditCategories/EditCategories';
 import EditReferences from './EditReferences/EditReferences';
-import ArticleContributors from '../ArticleRightSidebar/ArticleContributors';
+import ArticleContributors from '@/components/Article/ArticleRightSidebar/ArticleContributors';
+
 
 const EditRightSidebar = () => {
   // Створюємо стан тут, щоб передати його вниз

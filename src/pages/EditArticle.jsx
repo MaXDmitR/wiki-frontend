@@ -6,7 +6,7 @@ import Footer from "@/components/Common/Footer/Footer";
 import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
 import ArticleLeftSidebar from '@/components/Article/ArticleLeftSidebar/ArticleLeftSidebar';
 import ArticleText from '@/components/Article/ArticleText/ArticleText';
-import EditRightSidebar from '@/components/Article/EditRightSidebar/EditRightSidebar';
+import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
 
 import styles from './Article.module.scss';
 

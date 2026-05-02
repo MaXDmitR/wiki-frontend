@@ -10,11 +10,12 @@ function App() {
     <BrowserRouter>
       <div>
         <main style={{ flex: 1 }}>
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/article/:slug" element={<Article />} />
+           
             <Route path="/article/:slug/edit" element={<EditArticle />} />
+
 
             <Route path="/auth" element={<Auth mode="choice" />} />
             <Route path="/login" element={<Auth mode="login" />} />
