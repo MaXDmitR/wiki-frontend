@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Article from './pages/Article';
+import EditArticle from './pages/EditArticle';
 import Auth from './pages/Auth';
 
 
@@ -9,10 +10,12 @@ function App() {
     <BrowserRouter>
       <div>
         <main style={{ flex: 1 }}>
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/article/:slug" element={<Article />} />
+           
+            <Route path="/article/:slug/edit" element={<EditArticle />} />
+
 
             <Route path="/auth" element={<Auth mode="choice" />} />
             <Route path="/login" element={<Auth mode="login" />} />

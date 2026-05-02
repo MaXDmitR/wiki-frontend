@@ -28,14 +28,7 @@ const ArticleRightButtons = () => {
   return (
     <div className={`${styles.topNav} d-flex align-items-center gap-3 position-relative`}>
 
-      <button
-        onClick={toggleDevAuth}
-        className="btn btn-sm btn-danger position-absolute"
-        style={{ top: '-40px', right: '0', fontSize: '10px', whiteSpace: 'nowrap' }}
-      >
-        DEV: Змінити статус
-      </button>
-
+      
       {/* Кнопка з кубиком тепер має onClick */}
       <button className={styles.iconBtn} onClick={handleRandomClick} title="Випадкова стаття">
         <FaDiceFive size={20} />
