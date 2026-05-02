@@ -1,0 +1,40 @@
+.Sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.AddSlider {
+  position: relative;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(208, 208, 208, 1);
+  cursor: pointer;
+
+  span {
+    position: relative;
+    display: block;
+    width: 14px;
+    height: 14px;
+  }
+
+  span::before,
+  span::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 3px;
+    background-color: rgba(185, 185, 185, 1);
+    transform: translate(-50%, -50%);
+  }
+
+  span::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}
