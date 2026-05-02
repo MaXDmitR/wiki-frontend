@@ -1,0 +1,58 @@
+// src/pages/ArticleEditPage.module.scss
+
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.articleContainer {
+  flex: 1;
+  padding-top: 1rem; 
+  padding-bottom: 4rem;
+  
+  // 👇 Гарантує ідеальне центрування по горизонталі
+  max-width: 1400px; // Можеш змінити на свій розмір, якщо оригінал ширший/вужчий
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.articleGrid {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px; 
+  gap: 1.5rem; 
+  align-items: stretch; 
+}
+
+.leftColumn, .rightColumn {
+  position: sticky;
+  top: 1rem; 
+  height: max-content; 
+}
+
+// АДАПТИВНІСТЬ: Планшети
+@media (max-width: 1024px) {
+  .articleGrid {
+    grid-template-columns: 1fr 300px;
+    
+    .leftColumn {
+      grid-column: 1 / -1; 
+      position: static; 
+      order: 3; 
+    }
+  }
+}
+
+// АДАПТИВНІСТЬ: Мобілки
+@media (max-width: 768px) {
+  .articleGrid {
+    grid-template-columns: 1fr;
+    
+    .rightColumn {
+      position: static;
+      order: 2;
+    }
+  }
+}
