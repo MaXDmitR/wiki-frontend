@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./EditMediaSideBar.module.scss";
+import styles from "./EditMediaSidebar.module.scss";
 import EditArticleInitialMedia from "./EditArticleInitialMedia";
 import EditArticleMedia from "./EditArticleMedia";
 
