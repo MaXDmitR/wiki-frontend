@@ -1,0 +1,253 @@
+import React, { useState, useEffect, useRef} from 'react';
+import styles from './EditArticleBody.module.scss';
+
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+
+import * as TextStyle from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
+import FontFamily from '@tiptap/extension-font-family';
+
+import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
+
+const TextStyleExtension = TextStyle.TextStyle || TextStyle.default || TextStyle;
+
+const SectionEditor = ({ block, setEditorInstance }) => {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      TextStyleExtension,
+      Color,
+      FontFamily,
+    ],
+    content: block.content,
+  });
+
+  useEffect(() => {
+    if (editor) setEditorInstance(editor);
+  }, [editor]);
+
+  return <EditorContent editor={editor} className={styles.editor} />;
+};
+
+const ReadOnlySection = ({ html, onClick }) => {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      TextStyleExtension,
+      Color,
+      FontFamily,
+    ],
+    content: html,
+    editable: false,
+  });
+
+  return (
+    <div className={styles.section} onClick={onClick}>
+      <EditorContent editor={editor} />
+    </div>
+  );
+};
+
+const EditArticleBody = ({ date, content = [] }) => {
+  const [blocks, setBlocks] = useState([]);
+  const [activeId, setActiveId] = useState(null);
+  const [editor, setEditor] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const fontRef = useRef(null);
+
+  useOnClickOutside(fontRef, () => {
+    setOpen(false);
+  });
+
+  useEffect(() => {
+    const normalized = content
+      .map((b) => {
+        const html =
+          (b.sectionHeader?.trim()
+            ? `<h2>${b.sectionHeader}</h2>`
+            : '') +
+          (b.sectionTexts || [])
+            .map((t) => t?.trim())
+            .filter(Boolean)
+            .map((t) => `<p>${t}</p>`)
+            .join('');
+
+        return { 
+          id: crypto.randomUUID(),
+          content: html, 
+        };
+      })
+      .filter((b) => b.content.trim() !== '');
+
+    setBlocks(normalized);
+  }, [content]);
+
+  const updateBlock = (id, html) => {
+    setBlocks((prev) =>
+      prev.map((b) =>
+        b.id === id ? { ...b, content: html } : b
+      )
+    );
+  };
+
+  const addBlock = () => {
+    const newBlock = {
+      id: crypto.randomUUID(),
+      content: '<h2>New title</h2><p>Start writing your text</p>',
+    };
+
+    setBlocks((prev) => {
+      const updated = [...prev, newBlock];
+      setActiveId(newBlock.id);
+      return updated;
+    });
+  };
+
+  const formattedDate = date ? new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '/') : '';
+
+  const fonts = [
+    { label: 'Arial', value: 'Arial' },
+    { label: 'Georgia', value: 'Georgia' },
+    { label: 'Courier', value: 'Courier New' },
+  ];
+
+  return (
+    <div className={styles.card}>
+      <div className={styles.dateWrapper}>
+        <button className={styles.editButton}></button>
+        <small className={styles.date}>{formattedDate}</small>
+      </div>
+
+      {blocks.map((block) => {
+        const isActive = activeId === block.id;
+
+        return (
+          <div key={block.id} className={styles.sectionWrap}>
+            {!isActive && (
+              <>
+                <ReadOnlySection
+                  html={block.content}
+                  onClick={() => setActiveId(block.id)}
+                />
+
+                <button
+                  className={styles.deleteBtn}
+                  onClick={() => {
+                    setBlocks((prev) =>
+                      prev.filter((b) => b.id !== block.id)
+                    );
+
+                    if (activeId === block.id) {
+                      setActiveId(null);
+                      setEditor(null);
+                    }
+                  }}
+                >
+                </button>
+              </>
+            )}
+
+            {isActive && (
+              <div className={styles.editorSection}>
+
+                <div className={styles.toolbar}>
+                  <button className={styles.prevBtn} onClick={() => editor?.chain().focus().undo().run()}></button>
+                  <button className={styles.nextBtn} onClick={() => editor?.chain().focus().redo().run()}></button>
+
+                  <div ref={fontRef} className={`${styles.fontWrapper} ${open ? styles.open : ''}`}>
+                    <div
+                      className={`${styles.customSelect} ${open ? styles.open : ''}`}
+                      onClick={() => setOpen(!open)}
+                    >
+                      <div className={styles.selected} />
+
+                      {open && (
+                        <div className={styles.dropdown}>
+                          {fonts.map((font) => (
+                            <div
+                              key={font.value}
+                              className={styles.option}
+                              style={{ fontFamily: font.value }}
+                              onClick={() => {
+                                editor?.chain().focus().setFontFamily(font.value).run();
+                                setOpen(false);
+                              }}
+                            >
+                              {font.label}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={styles.colorWrapper}>
+                    <input
+                      type="color"
+                      className={styles.colorPicker}
+                      onChange={(e) =>
+                        editor?.chain().focus().setColor(e.target.value).run()
+                      }
+                    />
+                  </div>
+
+                  <button className={styles.boldBtn} onClick={() => editor?.chain().focus().toggleBold().run()}></button>
+                  <button className={styles.italicsBtn} onClick={() => editor?.chain().focus().toggleItalic().run()}></button>
+                  <button className={styles.underLineBtn} onClick={() => editor?.chain().focus().toggleUnderline?.().run()}></button>
+
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => {
+                      setBlocks(prev => prev.filter((b) => b.id !== block.id));
+                      setActiveId(null);
+                      setEditor(null);
+                    }}
+                  >
+                  </button>
+                </div>
+
+                <SectionEditor
+                  block={block}
+                  setEditorInstance={setEditor}
+                />
+
+                <div className={styles.buttons}>
+                  <button
+                    className={styles.cancelBtn}
+                    onClick={() => {
+                      setActiveId(null);
+                    }}
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    className={styles.saveBtn}
+                    onClick={() => {
+                      updateBlock(block.id, editor.getHTML());
+                      setActiveId(null);
+                      console.log('HTML:', editor.getHTML());
+                      console.log('JSON:', editor.getJSON());
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+
+              </div>
+            )}
+
+          </div>
+        );
+      })}
+
+      <div className={styles.addBlock} onClick={addBlock}>
+        +
+      </div>
+    </div>
+  );
+};
+
+export default EditArticleBody;
