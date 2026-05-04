@@ -13,20 +13,14 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
   const [navReady, setNavReady] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
 
-  const [media, setMedia] = useState(() =>
-    slides.map((s) => ({
-      id: s.id || crypto.randomUUID(),
-      img: s.img,
-      label: s.label,
-    }))
-  );
+  const [media, setMedia] = useState([]);
 
   useEffect(() => {
     setMedia(
       slides.map((s) => ({
-        id: s.id || crypto.randomUUID(),
-        img: s.img,
-        label: s.label,
+        id: s.id,
+        url: s.url,
+        label: s.label || "",
       }))
     );
   }, [slides]);
@@ -51,11 +45,19 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
       ...media,
       {
         id: crypto.randomUUID(),
-        img: url,
-        label: file.name,
+        url,
+        label: "",
       },
     ];
 
+    setMedia(updated);
+    onChange(updated);
+  };
+
+  const handleLabelChange = (id, value) => {
+    const updated = media.map((item) =>
+      item.id === id ? { ...item, label: value } : item
+    );
     setMedia(updated);
     onChange(updated);
   };
@@ -68,7 +70,10 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
             className={styles.overlay}
             onClick={() => setActiveImage(null)}
           >
-            <img className={styles.fullImage} src={activeImage} />
+            <img
+              className={styles.fullImage}
+              src={activeImage}
+            />
           </div>,
           document.body
         )}
@@ -108,12 +113,22 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
 
                   <img
                     className={styles.Picture}
-                    src={item.img}
-                    onClick={() => setActiveImage(item.img)}
+                    src={item.url}
+                    onClick={() => setActiveImage(item.url)}
                   />
                 </div>
 
-                <p className={styles.label}>{item.label}</p>
+                <input
+                  className={styles.Label}
+                  placeholder="Add description..."
+                  value={item.label}
+                  onChange={(e) =>
+                    handleLabelChange(
+                      item.id,
+                      e.target.value
+                    )
+                  }
+                />
               </SwiperSlide>
             ))}
 
