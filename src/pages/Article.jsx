@@ -69,7 +69,7 @@ const Article = () => {
 
           <article className={styles.centerColumn}>
      
-            <ArticleText 
+            <ArticleText
               title={article.title} 
               date={article.date} 
               content={article.content} 

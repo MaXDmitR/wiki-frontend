@@ -1,12 +1,19 @@
 import React from 'react';
+import EditArticleBody from './EditArticleBody';
 import styles from './EditText.module.scss';
 
-const EditText = () => {
+const EditText = ({ title, date, content }) => {
   return (
-    <div className={styles.wrapper}>
-      <h2>Edit Article Name</h2>
-      <div className={styles.editorPlaceholder}>
-        <p>WYSIWYG Editor will be here...</p>
+    <div className={styles.centerTest}>
+      <div className={styles.articleWrapper}>
+
+        <h2 className={styles.title}>{title}</h2>
+        <h3 className={styles.subTitle}>Edit mode</h3>
+
+        <EditArticleBody
+          date={date}
+          content={content}
+        />
       </div>
     </div>
   );

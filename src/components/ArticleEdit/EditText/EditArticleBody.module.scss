@@ -1,0 +1,387 @@
+.card {
+  background: #f3f3f3;
+  padding: 35px 29px 60px;
+  position: relative;
+  border-radius: 2px;
+  min-height: 720px;
+}
+
+.horizontalLine {
+  display: block;
+  width: 70%;
+  height: 1px;
+  background: #000;
+  margin-bottom: 25px;
+}
+
+/* HEADER */
+
+.dateWrapper {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.editButton {
+  width: 20px;
+  height: 20px;
+  background: #dcdcdc;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-image: url('/icons/Edit.svg');
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.2s;
+}
+
+.editButton:hover {
+  transform: scale(1.08);
+}
+
+.date {
+  font-size: 14px;
+  color: #000;
+  text-decoration: underline;
+}
+
+/*  SECTION WRAP  */
+
+.sectionWrap {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+/*  VIEW MODE  */
+
+.section h2 {
+  font-size: 30px;
+  font-family: Poppins;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 18px;
+}
+
+.section h2::after {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 1px;
+  background: #000;
+  margin-top: 12px;
+  margin-bottom: 25px;
+}
+
+.section p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #111;
+  margin-bottom: 14px;
+  font-family: Poppins;
+}
+
+/* TOOLBAR */
+
+.toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #d7d7d7;
+  border-radius: 10px;
+  padding: 8px;
+  
+}
+
+.fontWrapper {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.2s ease;
+
+    background-image: url('/icons/droparrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  &.open::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+.customSelect {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.selected {
+  width: 28px;
+  height: 30px;
+  background-image: url('/icons/fonts.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  min-width: 120px;
+
+  background: #1f1f1f;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 50;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.option {
+  padding: 8px 10px;
+  cursor: pointer;
+  color: white;
+
+  &:hover {
+    background: #2a2a2a;
+  }
+}
+
+
+.colorWrapper {
+  position: relative;
+  width: 28px;
+  height: 30px;
+  margin-right: 20px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: calc(100% + 5px);
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+
+    background-image: url('/icons/droparrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  &:focus-within::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+.colorPicker {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+
+  &::-webkit-color-swatch {
+    border-radius: 4px;
+  }
+}
+
+.prevBtn,
+.nextBtn,
+.boldBtn,
+.underLineBtn,
+.italicsBtn {
+  width: 20px;
+  height: 20px;
+
+  border: none;
+  padding: 0;
+  background-color: transparent;
+
+  display: inline-block;
+  cursor: pointer;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.prevBtn {
+  background-image: url('/icons/prevbtn.svg');
+  margin: 0px 15px;
+
+}
+
+.nextBtn {
+  background-image: url('/icons/nextbtn.svg');
+  margin-right: 40px;
+}
+
+.boldBtn {
+  background-image: url('/icons/boldbtn.svg');
+}
+
+.underLineBtn {
+  background-image: url('/icons/underlinebtn.svg');
+}
+
+.italicsBtn {
+  background-image: url('/icons/italicsbtn.svg');
+}
+
+.deleteBtn {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  transform: translate(-50%, -65%);
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #111;
+  color: white;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 70%;
+    height: 3px;
+    top: 50%;
+    left: 50%;
+    background-color: rgb(255, 255, 255);
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+
+/* EDITOR */
+
+.editorSection {
+  border-radius: 0 0 18px 18px;
+  margin-bottom: 18px;
+}
+
+.editor {
+  background: #d7d7d7;
+  padding: 28px;
+  border-radius: 24px;
+  padding-top: 35px;
+  transform: translateY(-10px);
+}
+
+.editor :global(.ProseMirror) {
+  min-height: 160px;
+  outline: none;
+  font-family: Poppins;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #111;
+}
+
+.editor :global(.ProseMirror h2) {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.editor :global(.ProseMirror p) {
+  margin-bottom: 14px;
+}
+
+.editor :global(.ProseMirror h2::after) {
+  content: "";
+  display: block;
+  width: 70%;
+  height: 1px;
+  background: #000;
+  margin-top: 12px;
+  margin-bottom: 25px;
+}
+
+/* BUTTONS */
+
+.buttons {
+  background: #d7d7d7;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 18px;
+  border-radius: 0 0 24px 24px;
+  transform:translateY(-60%);
+}
+
+.cancelBtn,
+.saveBtn {
+  min-height: 24px;
+  min-width: 70px;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: Poppins;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.cancelBtn {
+  background: white;
+}
+
+.saveBtn {
+  background: white;
+}
+
+.cancelBtn:hover,
+.saveBtn:hover {
+  transform: translateY(-1px);
+}
+
+/* ADD BLOCK */
+
+.addBlock {
+  margin-top: 25px;
+  height: 120px;
+  border: 4px dashed #c8c8c8;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  color: #c8c8c8;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.2s;
+}
+
+.addBlock:hover {
+  background: #ececec;
+  color: #999;
+}
