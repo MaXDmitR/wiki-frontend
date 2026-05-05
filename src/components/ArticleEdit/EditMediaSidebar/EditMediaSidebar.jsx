@@ -12,7 +12,12 @@ const EditMediaSideBar = ({ title, content = [] }) => {
         return {
           ...block,
           id: block.id || crypto.randomUUID(),
-          images: block.images || [],
+          images: (block.images || []).map((img) => ({
+            id: img.id || crypto.randomUUID(),
+            url: img.url || img.img,
+            label:
+              img.label || img.title || img.description || "",
+          })),
         };
       }
 
@@ -22,6 +27,18 @@ const EditMediaSideBar = ({ title, content = [] }) => {
       };
     });
 
+    const sliders = normalized.filter((b) => b.type === "slider");
+
+    const hasEmpty = sliders.some((s) => s.images.length === 0);
+
+    if (!hasEmpty) {
+      normalized.push({
+        id: crypto.randomUUID(),
+        type: "slider",
+        images: [],
+      });
+    }
+
     setBlocks(normalized);
   }, [content]);
 
@@ -29,29 +46,31 @@ const EditMediaSideBar = ({ title, content = [] }) => {
   const sliderBlocks = blocks.filter((b) => b.type === "slider");
 
   const handleSliderChange = (sliderId, updatedImages) => {
-    setBlocks((prev) =>
-      prev.map((block) =>
+    setBlocks((prev) => {
+      let updated = prev.map((block) =>
         block.id === sliderId
           ? { ...block, images: updatedImages }
           : block
-      )
-    );
-  };
+      );
 
-  const handleAddSlider = () => {
-    setBlocks((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        type: "slider",
-        images: [],
-      },
-    ]);
+      const sliders = updated.filter((b) => b.type === "slider");
+      const lastSlider = sliders[sliders.length - 1];
+
+      if (lastSlider && lastSlider.images.length > 0) {
+        updated.push({
+          id: crypto.randomUUID(),
+          type: "slider",
+          images: [],
+        });
+      }
+
+      return updated;
+    });
   };
 
   return (
     <div className={styles.Sidebar}>
-      {/* IMAGES */}
+      {/* IMAGE BLOCKS */}
       {imageBlocks.length > 0 ? (
         imageBlocks.map((block) => (
           <EditArticleInitialMedia
@@ -65,25 +84,16 @@ const EditMediaSideBar = ({ title, content = [] }) => {
         <h3 className={styles.DefaultTitle}>{title}</h3>
       )}
 
-      {sliderBlocks.map((slider) => {
-        const slides = slider.images.map((img) => ({
-          id: img.id || crypto.randomUUID(),
-          img: img.url || img.img,
-          label: img.label || img.title || img.description || title,
-        }));
-
-        return (
-          <EditArticleMedia
-            key={slider.id}
-            slides={slides}
-            onChange={(updated) =>
-              handleSliderChange(slider.id, updated)
-            }
-          />
-        );
-      })}
-
-      <button className={styles.AddSlider} onClick={handleAddSlider}><span></span></button>
+      {/* SLIDERS */}
+      {sliderBlocks.map((slider) => (
+        <EditArticleMedia
+          key={slider.id}
+          slides={slider.images}
+          onChange={(updated) =>
+            handleSliderChange(slider.id, updated)
+          }
+        />
+      ))}
     </div>
   );
 };
