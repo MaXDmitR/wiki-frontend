@@ -68,11 +68,11 @@ const Article = () => {
           </aside>
 
           <article className={styles.centerColumn}>
-
+     
             <ArticleText
-              title={article.title}
-              date={article.date}
-              content={article.content}
+              title={article.title} 
+              date={article.date} 
+              content={article.content} 
             />
           </article>
 
