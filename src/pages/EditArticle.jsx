@@ -4,7 +4,7 @@ import useSingleArticleStore from '@/store/useSingleArticleStore';
 
 import Footer from "@/components/Common/Footer/Footer";
 import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
-import ArticleLeftSidebar from '@/components/ArticleEdit/EditMediaSidebar/EditMediaSidebar';
+import EditMediaSidebar from '@/components/ArticleEdit/EditMediaSidebar/EditMediaSidebar';
 import ArticleText from '@/components/Article/ArticleText/ArticleText';
 import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
 
@@ -53,7 +53,7 @@ const EditArticle = () => {
         <div className={styles.articleGrid}>
 
           <aside className={styles.leftColumn}>
-            <ArticleLeftSidebar
+            <EditMediaSidebar
               title={article.title}
               content={article.content}
             />
