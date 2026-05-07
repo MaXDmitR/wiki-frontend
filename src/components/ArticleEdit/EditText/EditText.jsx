@@ -2,7 +2,7 @@ import React from 'react';
 import EditArticleBody from './EditArticleBody';
 import styles from './EditText.module.scss';
 
-const EditText = ({ title, date, content }) => {
+const EditText = ({ title, date, content, onChange }) => {
   return (
     <div className={styles.centerTest}>
       <div className={styles.articleWrapper}>
@@ -13,6 +13,7 @@ const EditText = ({ title, date, content }) => {
         <EditArticleBody
           date={date}
           content={content}
+          onChange={onChange}
         />
       </div>
     </div>

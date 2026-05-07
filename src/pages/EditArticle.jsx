@@ -1,54 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useSingleArticleStore from '@/store/useSingleArticleStore';
+import useEditArticleStore from '@/store/useEditArticleStore';
 
 import Footer from "@/components/Common/Footer/Footer";
 import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
 import EditMediaSidebar from '@/components/ArticleEdit/EditMediaSidebar/EditMediaSidebar';
-import ArticleText from '@/components/Article/ArticleText/ArticleText';
-import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
-
-import styles from './Article.module.scss';
 import EditText from '@/components/ArticleEdit/EditText/EditText';
+import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
+import styles from './Article.module.scss';
 
 const EditArticle = () => {
   const { slug } = useParams();
   const { article, isLoading, error, fetchArticleBySlug } = useSingleArticleStore();
 
-  const [categories, setCategories] = useState([]);
-  const [references, setReferences] = useState([]);
+  // 👇 ТЯГНЕМО ТІЛЬКИ ТЕ, ЩО ТРЕБА, З НОВОГО СТОРА
+  const { 
+    initArticleData, 
+    setTextBlocks, 
+    setMediaBlocks, 
+    saveArticle 
+  } = useEditArticleStore();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     if (slug) {
       fetchArticleBySlug(slug).then((data) => {
-        setCategories(data?.categories || []);
-        setReferences(data?.references || []);
+        // 👇 ІНІЦІАЛІЗУЄМО НАШ ГЛОБАЛЬНИЙ СТОР
+        if (data) initArticleData(data); 
       });
     }
-  }, [slug]);
+  }, [slug, fetchArticleBySlug, initArticleData]);
 
-  if (isLoading) return (
-    <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}>
-      <h2 className="text-white">Завантаження...</h2>
-    </div>
-  );
-
-  if (error) return (
-    <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}>
-      <h2 className="text-danger">{error}</h2>
-    </div>
-  );
-
-  if (!article) return null;
+  if (isLoading) return <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}><h2 className="text-white">Завантаження...</h2></div>;
+  if (error || !article) return <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}><h2 className="text-danger">{error || "Статтю не знайдено"}</h2></div>;
 
   return (
     <div className={styles.pageWrapper}>
-      <ArticleHeader
-        title={article.title}
-        date={article.date}
-        hasSearch={true}
-      />
+      <ArticleHeader title={article.title} date={article.date} hasSearch={true} />
 
       <main className={`container px-4 position-relative z-3 ${styles.articleContainer}`}>
         <div className={styles.articleGrid}>
@@ -57,6 +46,7 @@ const EditArticle = () => {
             <EditMediaSidebar
               title={article.title}
               content={article.content}
+              onChange={setMediaBlocks} // 👈 Одразу кидаємо в стор
             />
           </aside>
 
@@ -65,18 +55,21 @@ const EditArticle = () => {
               title={article.title}
               date={article.date}
               content={article.content}
+              onChange={setTextBlocks} // 👈 Одразу кидаємо в стор
             />
           </article>
 
           <aside className={styles.rightColumn}>
-            <EditRightSidebar
-              categories={categories}
-              setCategories={setCategories}
-              references={references}
-              setReferences={setReferences}
-            />
+             {/* Сайдбар сам підключений до стора всередині! */}
+            <EditRightSidebar />
           </aside>
 
+        </div>
+
+        <div className={styles.globalActions}>
+          <button className={styles.publishButton} onClick={saveArticle}> {/* 👈 Викликаємо зі стора */}
+            💾 Зберегти зміни
+          </button>
         </div>
       </main>
 

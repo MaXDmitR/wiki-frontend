@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './EditArticleBody.module.scss';
 
 import { useEditor, EditorContent } from '@tiptap/react';
@@ -49,7 +49,7 @@ const ReadOnlySection = ({ html, onClick }) => {
   );
 };
 
-const EditArticleBody = ({ date, content = [] }) => {
+const EditArticleBody = ({ date, content = [], onChange }) => {
   const [blocks, setBlocks] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [editor, setEditor] = useState(null);
@@ -74,9 +74,9 @@ const EditArticleBody = ({ date, content = [] }) => {
             .map((t) => `<p>${t}</p>`)
             .join('');
 
-        return { 
+        return {
           id: crypto.randomUUID(),
-          content: html, 
+          content: html,
         };
       })
       .filter((b) => b.content.trim() !== '');
@@ -84,12 +84,25 @@ const EditArticleBody = ({ date, content = [] }) => {
     setBlocks(normalized);
   }, [content]);
 
+
+  useEffect(() => {
+    // Відправляємо тільки якщо blocks дійсно існують і ми маємо onChange
+    if (onChange && blocks.length > 0) {
+      onChange(blocks);
+    }
+  }, [blocks, onChange]); // 👈 ДОДАЙ onChange в масив залежностей
+
   const updateBlock = (id, html) => {
-    setBlocks((prev) =>
-      prev.map((b) =>
+    setBlocks((prev) => {
+      const newBlocks = prev.map((b) =>
         b.id === id ? { ...b, content: html } : b
-      )
-    );
+      );
+
+
+
+
+      return newBlocks;
+    });
   };
 
   const addBlock = () => {
