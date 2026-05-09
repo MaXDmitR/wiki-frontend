@@ -20,10 +20,13 @@
 }
 
 .block {
-  background: #111114;
-  border: 2px solid #2a2a2e;
-  padding: 16px;
-  box-shadow: 3px 3px 0 #1a1a1e;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.05),
+    0 4px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .avatarGroup {
@@ -32,26 +35,25 @@
   padding: 4px 0;
 }
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 0;
-  border: 2px solid #0c0c0d;
-  object-fit: cover;
-  transition: transform 0.15s;
-  outline: 1px solid #2a2a2e;
-
-  &:not(:first-child) { margin-left: -8px; }
-  &:hover { transform: translateY(-3px) scale(1.05); z-index: 2; outline-color: #00e87a; }
-}
-
-.avatar {
-  object-fit: cover;
-}
-
+.avatar,
 .techItem {
-  font-size: 26px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, z-index 0.2s;
+
+  &:not(:first-child) { margin-left: -20px; }
+  &:hover { transform: translateY(-3px); z-index: 2; }
 }
+
+.avatar { object-fit: cover; }
+.techItem { font-size: 26px; }
 
 .techIcon {
   display: flex;
@@ -60,40 +62,29 @@
   color: #fff;
 }
 
-.refList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+.refList { list-style: none; padding: 0; margin: 0; }
 
 .refItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 10px 0;
   border-bottom: 1px solid #f1f1f1;
 
-  &:last-child {
-    border-bottom: none;
-  }
+  &:last-child { border-bottom: none; }
 
   a {
     text-decoration: none;
     color: #444;
     font-size: 13px;
     font-weight: 500;
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80%;
-
     transition: color 0.2s;
 
-    &:hover {
-      color: #007bff;
-    }
+    &:hover { color: #007bff; }
   }
 }
 
@@ -103,14 +94,9 @@
   color: #999;
   cursor: pointer;
   padding: 5px;
-
   display: flex;
   align-items: center;
-
   transition: color 0.2s, transform 0.2s;
 
-  &:hover {
-    color: #333;
-    transform: scale(1.1);
-  }
+  &:hover { color: #333; transform: scale(1.1); }
 }

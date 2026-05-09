@@ -8,7 +8,7 @@ const EditText = ({ title, date, content, onChange }) => {
       <div className={styles.articleWrapper}>
 
         <h2 className={styles.title}>{title}</h2>
-        <h3 className={styles.subTitle}>Edit mode</h3>
+        <h3 className={styles.subTitle}>// Edit mode</h3>
 
         <EditArticleBody
           date={date}

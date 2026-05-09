@@ -6,9 +6,10 @@ import useEditArticleStore from '@/store/useEditArticleStore';
 import Footer from "@/components/Common/Footer/Footer";
 import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
 import EditMediaSidebar from '@/components/ArticleEdit/EditMediaSidebar/EditMediaSidebar';
-import EditText from '@/components/ArticleEdit/EditText/EditText';
 import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
-import styles from './Article.module.scss';
+
+import styles from './EditArticle.module.scss';
+import EditText from '@/components/ArticleEdit/EditText/EditText';
 
 const EditArticle = () => {
   const { slug } = useParams();
