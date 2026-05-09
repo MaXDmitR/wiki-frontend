@@ -3,11 +3,16 @@ import styles from "./EditMediaSidebar.module.scss";
 import EditArticleInitialMedia from "./EditArticleInitialMedia";
 import EditArticleMedia from "./EditArticleMedia";
 
-const EditMediaSideBar = ({ title, content = [] }) => {
+const EditMediaSideBar = ({ title, content = [], onChange }) => {
   const [blocks, setBlocks] = useState([]);
 
   useEffect(() => {
-    const normalized = content.map((block) => {
+
+    const mediaOnly = content.filter(
+      (block) => block.type === "image" || block.type === "slider"
+    );
+
+    const normalized = mediaOnly.map((block) => {
       if (block.type === "slider") {
         return {
           ...block,
@@ -42,6 +47,12 @@ const EditMediaSideBar = ({ title, content = [] }) => {
     setBlocks(normalized);
   }, [content]);
 
+  useEffect(() => {
+    if (onChange && blocks.length > 0) {
+      onChange(blocks);
+    }
+  }, [blocks, onChange]);
+
   const imageBlocks = blocks.filter((b) => b.type === "image");
   const sliderBlocks = blocks.filter((b) => b.type === "slider");
 
@@ -68,6 +79,15 @@ const EditMediaSideBar = ({ title, content = [] }) => {
     });
   };
 
+  const handleImageChange = (imageId, updatedData) => {
+    setBlocks((prev) =>
+      prev.map((block) =>
+        block.id === imageId ? { ...block, ...updatedData } : block
+      )
+    );
+  };
+
+
   return (
     <div className={styles.Sidebar}>
       {/* IMAGE BLOCKS */}
@@ -78,6 +98,7 @@ const EditMediaSideBar = ({ title, content = [] }) => {
             img={block.url}
             upperLabel={block.description}
             lowerLabel={block.title}
+            onChange={(newData) => handleImageChange(block.id, newData)}
           />
         ))
       ) : (

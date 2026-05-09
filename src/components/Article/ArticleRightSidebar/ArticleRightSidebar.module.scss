@@ -1,23 +1,22 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding: 20px;
-  max-width: 350px;
+  gap: 20px;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .sectionTitle {
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #ffffff;
-  padding-left: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: #00e87a;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .block {
@@ -30,11 +29,10 @@
   border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
-.avatarGroup,
-.techGroup {
+.avatarGroup {
   display: flex;
-  justify-content: center;
-  padding: 5px 0;
+  justify-content: flex-start;
+  padding: 4px 0;
 }
 
 .avatar,
