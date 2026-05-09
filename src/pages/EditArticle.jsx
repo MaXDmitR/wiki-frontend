@@ -5,10 +5,9 @@ import useSingleArticleStore from '@/store/useSingleArticleStore';
 import Footer from "@/components/Common/Footer/Footer";
 import ArticleHeader from '@/components/Common/ArticleHeader/ArticleHeader';
 import EditMediaSidebar from '@/components/ArticleEdit/EditMediaSidebar/EditMediaSidebar';
-import ArticleText from '@/components/Article/ArticleText/ArticleText';
 import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
 
-import styles from './Article.module.scss';
+import styles from './EditArticle.module.scss';
 import EditText from '@/components/ArticleEdit/EditText/EditText';
 
 const EditArticle = () => {

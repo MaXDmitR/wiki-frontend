@@ -1,207 +1,163 @@
 .card {
-  background: #f3f3f3;
-  padding: 35px 29px 60px;
+  background: #111114;
+  padding: 40px 36px 64px;
   position: relative;
-  border-radius: 2px;
+  border-radius: 0;
   min-height: 720px;
+  border: 2px solid #e8e8e8;
+  box-shadow: 6px 6px 0 #00e87a;
 }
-
-.horizontalLine {
-  display: block;
-  width: 70%;
-  height: 1px;
-  background: #000;
-  margin-bottom: 25px;
-}
-
-/* HEADER */
 
 .dateWrapper {
   position: absolute;
-  top: 12px;
-  right: 16px;
+  top: 16px;
+  right: 20px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .editButton {
-  width: 20px;
-  height: 20px;
-  background: #dcdcdc;
-  border-radius: 50%;
-  border: none;
+  width: 22px;
+  height: 22px;
+  background: #1a1a1e;
+  border-radius: 0;
+  border: 1px solid #333;
   cursor: pointer;
   background-image: url('/icons/Edit.svg');
   background-size: 10px;
   background-repeat: no-repeat;
   background-position: center;
-  transition: 0.2s;
-}
+  transition: 0.15s;
+  filter: invert(1);
 
-.editButton:hover {
-  transform: scale(1.08);
+  &:hover {
+    background-color: #00e87a;
+    border-color: #00e87a;
+    filter: none;
+  }
 }
 
 .date {
-  font-size: 14px;
-  color: #000;
-  text-decoration: underline;
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #555;
+  letter-spacing: 1px;
 }
-
-/*  SECTION WRAP  */
 
 .sectionWrap {
   position: relative;
   margin-bottom: 32px;
 }
 
-/*  VIEW MODE  */
-
 .section h2 {
-  font-size: 30px;
-  font-family: Poppins;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 12px;
 }
 
 .section h2::after {
   content: "";
   display: block;
-  width: 70%;
+  width: 100%;
   height: 1px;
-  background: #000;
-  margin-top: 12px;
-  margin-bottom: 25px;
+  background: #2a2a2e;
+  margin-top: 10px;
+  margin-bottom: 18px;
 }
 
 .section p {
-  font-size: 16px;
-  line-height: 1.9;
-  color: #111;
-  margin-bottom: 14px;
-  font-family: Poppins;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #888;
+  margin-bottom: 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 /* TOOLBAR */
-
 .toolbar {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
-  background: #d7d7d7;
-  border-radius: 10px;
-  padding: 8px;
-  
+  gap: 4px;
+  background: #1a1a1e;
+  border: 2px solid #e8e8e8;
+  border-bottom: none;
+  padding: 8px 12px;
+  position: relative;
 }
 
 .fontWrapper {
   position: relative;
-  width: 35px;
-  height: 35px;
-  margin-right: 20px;
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
 
   &::after {
     content: "";
     position: absolute;
-    width: 15px;
-    height: 15px;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%) rotate(0deg);
-    transition: transform 0.2s ease;
-
+    width: 10px; height: 10px;
+    left: 100%; top: 50%;
+    transform: translateY(-50%);
     background-image: url('/icons/droparrow.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-  }
-
-  &.open::after {
-    transform: translateY(-50%) rotate(180deg);
+    filter: invert(1);
+    opacity: 0.7;
   }
 }
 
-.customSelect {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  cursor: pointer;
-}
+.customSelect { width: 100%; height: 100%; position: relative; cursor: pointer; }
 
 .selected {
   width: 28px;
-  height: 30px;
+  height: 28px;
   background-image: url('/icons/fonts.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  filter: invert(1);
+  opacity: 0.8;
 }
 
 .dropdown {
   position: absolute;
-  top: 110%;
-  left: 0;
-  min-width: 120px;
-
-  background: #1f1f1f;
-  border-radius: 8px;
+  top: 110%; left: 0;
+  min-width: 130px;
+  background: #0c0c0d;
+  border: 2px solid #e8e8e8;
   overflow: hidden;
-  z-index: 50;
-
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 100;
 }
 
 .option {
-  padding: 8px 10px;
+  padding: 9px 14px;
   cursor: pointer;
-  color: white;
+  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  border-bottom: 1px solid #1a1a1e;
 
-  &:hover {
-    background: #2a2a2a;
-  }
+  &:hover { background: #1a1a1e; color: #00e87a; }
 }
-
 
 .colorWrapper {
   position: relative;
-  width: 28px;
-  height: 30px;
-  margin-right: 20px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    left: calc(100% + 5px);
-    top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.2s ease;
-
-    background-image: url('/icons/droparrow.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
-
-  &:focus-within::after {
-    transform: translateY(-50%) rotate(180deg);
-  }
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
 }
 
 .colorPicker {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
+  width: 100%; height: 100%;
+  border: none; padding: 0;
+  background: transparent; cursor: pointer;
 
   &::-webkit-color-swatch {
-    border-radius: 4px;
+    border-radius: 0;
+    border: 2px solid #555;
   }
 }
 
@@ -210,178 +166,130 @@
 .boldBtn,
 .underLineBtn,
 .italicsBtn {
-  width: 20px;
-  height: 20px;
-
-  border: none;
-  padding: 0;
+  width: 26px; height: 26px;
+  border: none; padding: 0;
   background-color: transparent;
-
-  display: inline-block;
-  cursor: pointer;
-
+  display: inline-block; cursor: pointer;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  filter: invert(1);
+  opacity: 0.8;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 1;
+    background-color: rgba(255,255,255,0.1);
+  }
 }
 
-.prevBtn {
-  background-image: url('/icons/prevbtn.svg');
-  margin: 0px 15px;
-
-}
-
-.nextBtn {
-  background-image: url('/icons/nextbtn.svg');
-  margin-right: 40px;
-}
-
-.boldBtn {
-  background-image: url('/icons/boldbtn.svg');
-}
-
-.underLineBtn {
-  background-image: url('/icons/underlinebtn.svg');
-}
-
-.italicsBtn {
-  background-image: url('/icons/italicsbtn.svg');
-}
+.prevBtn { background-image: url('/icons/prevbtn.svg'); }
+.nextBtn { background-image: url('/icons/nextbtn.svg'); margin-right: 6px; }
+.boldBtn { background-image: url('/icons/boldbtn.svg'); }
+.underLineBtn { background-image: url('/icons/underlinebtn.svg'); }
+.italicsBtn { background-image: url('/icons/italicsbtn.svg'); }
 
 .deleteBtn {
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0; top: 0;
   transform: translate(-50%, -65%);
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  border: none;
+  height: 18px; width: 18px;
+  border-radius: 0;
+  border: 2px solid #00e87a;
   cursor: pointer;
-  background: #111;
-  color: white;
+  background: #0c0c0d;
+  z-index: 5;
 
-  &::before,
-  &::after {
+  &::before, &::after {
     content: "";
     position: absolute;
-    width: 70%;
-    height: 3px;
-    top: 50%;
-    left: 50%;
-    background-color: rgb(255, 255, 255);
+    width: 60%; height: 2px;
+    top: 50%; left: 50%;
+    background-color: #00e87a;
   }
-
-  &::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
-
-  &::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-  }
+  &::before { transform: translate(-50%, -50%) rotate(45deg); }
+  &::after  { transform: translate(-50%, -50%) rotate(-45deg); }
 }
 
-
-/* EDITOR */
-
-.editorSection {
-  border-radius: 0 0 18px 18px;
-  margin-bottom: 18px;
-}
+.editorSection { margin-bottom: 0; }
 
 .editor {
-  background: #d7d7d7;
-  padding: 28px;
-  border-radius: 24px;
-  padding-top: 35px;
-  transform: translateY(-10px);
+  background: #0c0c0d;
+  padding: 24px 28px;
+  border: 2px solid #e8e8e8;
+  border-top: none;
 }
 
 .editor :global(.ProseMirror) {
-  min-height: 160px;
-  outline: none;
-  font-family: Poppins;
-  font-size: 16px;
-  line-height: 1.9;
-  color: #111;
+  min-height: 160px; outline: none;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px; line-height: 1.85;
+  color: #cccccc;
+  caret-color: #00e87a;
 }
 
 .editor :global(.ProseMirror h2) {
-  font-size: 30px;
-  font-weight: 700;
-  margin-bottom: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px; font-weight: 500;
+  color: #fff; margin-bottom: 12px;
 }
 
-.editor :global(.ProseMirror p) {
-  margin-bottom: 14px;
-}
+.editor :global(.ProseMirror p) { margin-bottom: 12px; }
 
 .editor :global(.ProseMirror h2::after) {
   content: "";
-  display: block;
-  width: 70%;
-  height: 1px;
-  background: #000;
-  margin-top: 12px;
-  margin-bottom: 25px;
+  display: block; width: 100%; height: 1px;
+  background: #2a2a2e;
+  margin-top: 10px; margin-bottom: 18px;
 }
-
-/* BUTTONS */
 
 .buttons {
-  background: #d7d7d7;
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  padding: 18px;
-  border-radius: 0 0 24px 24px;
-  transform:translateY(-60%);
+  gap: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  margin-top: 12px;
 }
 
-.cancelBtn,
-.saveBtn {
-  min-height: 24px;
-  min-width: 70px;
-  border: none;
-  padding: 4px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: Poppins;
-  font-size: 12px;
-  transition: 0.2s;
+.cancelBtn, .saveBtn {
+  min-height: 36px; min-width: 90px;
+  border: none; padding: 8px 20px;
+  border-radius: 0; cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; font-weight: 500;
+  transition: 0.15s; letter-spacing: 1px;
 }
 
 .cancelBtn {
-  background: white;
+  background: #1a1a1e;
+  color: #555;
+  border: 2px solid #2a2a2e;
+
+  &:hover { color: #888; border-color: #555; }
 }
 
 .saveBtn {
-  background: white;
-}
+  background: #00e87a;
+  color: #0c0c0d;
+  border: 2px solid #00e87a;
+  margin-left: 8px;
 
-.cancelBtn:hover,
-.saveBtn:hover {
-  transform: translateY(-1px);
+  &:hover {
+    background: #00c968;
+    box-shadow: 3px 3px 0 rgba(0,232,122,0.3);
+  }
 }
-
-/* ADD BLOCK */
 
 .addBlock {
-  margin-top: 25px;
-  height: 120px;
-  border: 4px dashed #c8c8c8;
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 80px;
-  color: #c8c8c8;
-  cursor: pointer;
-  user-select: none;
-  transition: 0.2s;
-}
+  margin-top: 20px; height: 72px;
+  border: 2px dashed #2a2a2e;
+  border-radius: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px; color: #2a2a2e;
+  cursor: pointer; user-select: none; transition: 0.15s;
 
-.addBlock:hover {
-  background: #ececec;
-  color: #999;
+  &:hover { border-color: #00e87a; color: #00e87a; }
 }
