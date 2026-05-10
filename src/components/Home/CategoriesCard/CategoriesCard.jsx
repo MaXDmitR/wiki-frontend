@@ -4,7 +4,7 @@ import styles from "./CategoriesCard.module.scss";
 const CategoriesCard = ({ icon, nameCategory, path, countArticles }) => {
   return (
     <div className={styles.card}>
-      <Link to={path}>
+      <Link>
         <div className={styles.info}>
           <div className={styles.iconBox}>
             <img className={styles.icon} src={icon} alt={nameCategory} />

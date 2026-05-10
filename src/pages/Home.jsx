@@ -58,6 +58,7 @@ const Home = () => {
               paragraphs={[getArticleDescription()]} 
               date={`Was published: ${formattedDate}`}
               logoSrc={getArticleImage()} 
+              slug={featuredArticle.slug}
             />
           ) : (
             <p style={{ color: 'white', textAlign: 'center' }}>Завантаження статті...</p>

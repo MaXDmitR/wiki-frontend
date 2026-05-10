@@ -6,7 +6,7 @@ const Logo = ({ size = "md", expand = false }) => {
     <div className={styles.logoBox}>
       <Link to="/">
         <img className={`${styles.logo} ${styles[size]}`} src="/imgs/logo.png" alt="Wiki UA" />
-        {expand && <span className={`${styles.label} ${styles[size]}`}>Wikipédia</span>}
+        {expand && <span className={`${styles.label} ${styles[size]}`}>IT Wikipédia</span>}
       </Link>
     </div>
   );

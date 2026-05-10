@@ -64,7 +64,7 @@ const HeroSection = () => {
         <div className={`${styles.logoBox} mb-3`}>
           <h1 className={styles.wLogo}>W</h1>
         </div>
-        <h2 className={styles.mainTitle}>Wikipédia</h2>
+        <h2 className={styles.mainTitle}>IT Wikipédia</h2>
         <p className={styles.subtitle}>The Free IT Encyclopedia</p>
       </div>
 
