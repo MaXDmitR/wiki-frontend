@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Article from './pages/Article';
 import EditArticle from './pages/EditArticle';
 import Auth from './pages/Auth';
+import ProtectedRoute from '@/components/Common/ProtectedRoute';
 
 
 function App() {
@@ -13,8 +14,15 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/article/:slug" element={<Article />} />
-           
-            <Route path="/article/:slug/edit" element={<EditArticle />} />
+
+            <Route
+              path="/article/:slug/edit"
+              element={
+                <ProtectedRoute>
+                  <EditArticle />
+                </ProtectedRoute>
+              }
+            />
 
 
             <Route path="/auth" element={<Auth mode="choice" />} />
@@ -23,7 +31,7 @@ function App() {
           </Routes>
         </main>
       </div>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

@@ -161,7 +161,14 @@ const useEditArticleStore = create((set, get) => ({
 
     } catch (error) {
       console.error("SAVE ERROR:", error);
-      alert(`Помилка:\n${error.message}`);
+      
+      // Якщо бекенд каже, що ми не авторизовані
+      if (error.message.includes('401') || error.message.toLowerCase().includes('unauthorized')) {
+          alert("Ваша сесія закінчилася. Будь ласка, увійдіть знову.");
+          useAuthStore.getState().logoutUser(); // 👈 Викидаємо юзера
+      } else {
+          alert(`Помилка:\n${error.message}`);
+      }
     }
   }
 }));

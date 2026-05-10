@@ -6,8 +6,8 @@ import EditArticleMedia from "./EditArticleMedia";
 const EditMediaSideBar = ({ title, content = [], onChange }) => {
   const [blocks, setBlocks] = useState([]);
 
+  // --- 1. ІНІЦІАЛІЗАЦІЯ ---
   useEffect(() => {
-
     const mediaOnly = content.filter(
       (block) => block.type === "image" || block.type === "slider"
     );
@@ -20,33 +20,32 @@ const EditMediaSideBar = ({ title, content = [], onChange }) => {
           images: (block.images || []).map((img) => ({
             id: img.id || crypto.randomUUID(),
             url: img.url || img.img,
-            label:
-              img.label || img.title || img.description || "",
+            label: img.label || img.title || img.description || "",
           })),
         };
       }
-
       return {
         ...block,
         id: block.id || crypto.randomUUID(),
       };
     });
 
-    const sliders = normalized.filter((b) => b.type === "slider");
+    // Одразу відсікаємо всі порожні слайдери (щоб не було "дірок" з минулих збережень)
+    const withoutEmptySliders = normalized.filter(
+      (b) => !(b.type === "slider" && b.images.length === 0)
+    );
 
-    const hasEmpty = sliders.some((s) => s.images.length === 0);
+    // Гарантовано додаємо один порожній слот у самий кінець
+    withoutEmptySliders.push({
+      id: crypto.randomUUID(),
+      type: "slider",
+      images: [],
+    });
 
-    if (!hasEmpty) {
-      normalized.push({
-        id: crypto.randomUUID(),
-        type: "slider",
-        images: [],
-      });
-    }
-
-    setBlocks(normalized);
+    setBlocks(withoutEmptySliders);
   }, [content]);
 
+  // --- 2. СИНХРОНІЗАЦІЯ НАВЕРХ ---
   useEffect(() => {
     if (onChange && blocks.length > 0) {
       onChange(blocks);
@@ -56,24 +55,25 @@ const EditMediaSideBar = ({ title, content = [], onChange }) => {
   const imageBlocks = blocks.filter((b) => b.type === "image");
   const sliderBlocks = blocks.filter((b) => b.type === "slider");
 
+  // --- 3. ОНОВЛЕННЯ СЛАЙДЕРІВ (Нова логіка) ---
   const handleSliderChange = (sliderId, updatedImages) => {
     setBlocks((prev) => {
+      // Крок А: Оновлюємо картинки в конкретному слайдері
       let updated = prev.map((block) =>
-        block.id === sliderId
-          ? { ...block, images: updatedImages }
-          : block
+        block.id === sliderId ? { ...block, images: updatedImages } : block
       );
 
-      const sliders = updated.filter((b) => b.type === "slider");
-      const lastSlider = sliders[sliders.length - 1];
+      // Крок Б: Жорстко видаляємо ВСІ порожні слайдери (схлопуємо дірки)
+      updated = updated.filter(
+        (block) => !(block.type === "slider" && block.images.length === 0)
+      );
 
-      if (lastSlider && lastSlider.images.length > 0) {
-        updated.push({
-          id: crypto.randomUUID(),
-          type: "slider",
-          images: [],
-        });
-      }
+      // Крок В: Завжди додаємо рівно ОДИН порожній слайдер у самий кінець
+      updated.push({
+        id: crypto.randomUUID(),
+        type: "slider",
+        images: [],
+      });
 
       return updated;
     });
@@ -86,7 +86,6 @@ const EditMediaSideBar = ({ title, content = [], onChange }) => {
       )
     );
   };
-
 
   return (
     <div className={styles.Sidebar}>
@@ -110,9 +109,7 @@ const EditMediaSideBar = ({ title, content = [], onChange }) => {
         <EditArticleMedia
           key={slider.id}
           slides={slider.images}
-          onChange={(updated) =>
-            handleSliderChange(slider.id, updated)
-          }
+          onChange={(updated) => handleSliderChange(slider.id, updated)}
         />
       ))}
     </div>
