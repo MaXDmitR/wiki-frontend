@@ -67,6 +67,7 @@ const EditArticleBody = ({ date, content = [], onChange }) => {
   const [open, setOpen] = useState(false);
 
   const fontRef = useRef(null);
+  const colorTimeoutRef = useRef(null);
 
   useOnClickOutside(fontRef, () => {
     setOpen(false);
@@ -217,9 +218,19 @@ const EditArticleBody = ({ date, content = [], onChange }) => {
                     <input
                       type="color"
                       className={styles.colorPicker}
-                      onChange={(e) =>
-                        editor?.chain().focus().setColor(e.target.value).run()
-                      }
+                      onChange={(e) => {
+                        const newColor = e.target.value; // Зберігаємо колір
+
+                        // Якщо користувач продовжує тягнути повзунок — скасовуємо попередній запис
+                        if (colorTimeoutRef.current) {
+                          clearTimeout(colorTimeoutRef.current);
+                        }
+
+                        // Встановлюємо новий таймер. Tiptap отримає команду лише через 300мс після того, як ти зупиниш мишку
+                        colorTimeoutRef.current = setTimeout(() => {
+                          editor?.chain().focus().setColor(newColor).run();
+                        }, 300);
+                      }}
                     />
                   </div>
 
