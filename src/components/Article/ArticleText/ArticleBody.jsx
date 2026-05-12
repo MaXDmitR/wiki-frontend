@@ -30,6 +30,7 @@ const ArticleBody = ({ date, content = [] }) => {
               key={index} 
               title={block.sectionHeader} 
               paragraphs={block.sectionTexts} 
+              
             />
           );
         }
