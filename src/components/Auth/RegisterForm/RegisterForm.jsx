@@ -42,7 +42,7 @@ const RegisterForm = () => {
 
     // 👈 Викликаємо нашу реальну функцію зі стора
     const success = await registerUser({
-      email: data.email,
+      email: data.email.toLowerCase(),
       password: data.password,
       nickname: data.nickname,
       avatar: file,

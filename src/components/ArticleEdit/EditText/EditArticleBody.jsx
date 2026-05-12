@@ -10,6 +10,9 @@ import FontFamily from '@tiptap/extension-font-family';
 
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 
+import { useNavigate, useParams } from 'react-router-dom'; // 👈 Додаємо роутер
+import { FiX } from 'react-icons/fi'; // 👈 Додаємо іконку хрестика
+
 const TextStyleExtension = TextStyle.TextStyle || TextStyle.default || TextStyle;
 
 const SectionEditor = ({ block, setEditorInstance }) => {
@@ -50,6 +53,14 @@ const ReadOnlySection = ({ html, onClick }) => {
 };
 
 const EditArticleBody = ({ date, content = [], onChange }) => {
+
+  const navigate = useNavigate();
+  const { slug } = useParams();
+
+  const handleCancelExit = () => {
+    navigate(`/article/${slug}`);
+  };
+
   const [blocks, setBlocks] = useState([]);
   const [activeId, setActiveId] = useState(null);
   const [editor, setEditor] = useState(null);
@@ -129,10 +140,16 @@ const EditArticleBody = ({ date, content = [], onChange }) => {
   return (
     <div className={styles.card}>
       <div className={styles.dateWrapper}>
-        <button className={styles.editButton}></button>
+        <button 
+          className={styles.cancelButtonExit} // 👈 Змінили клас
+          onClick={handleCancelExit}          // 👈 Додали onClick
+          title="Вийти без збереження"
+        >
+          <FiX size={18} />
+        </button>
         <small className={styles.date}>{formattedDate}</small>
       </div>
-
+      
       {blocks.map((block) => {
         const isActive = activeId === block.id;
 

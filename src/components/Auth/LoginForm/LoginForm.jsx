@@ -30,7 +30,7 @@ const LoginForm = () => {
   const onSubmit = async (data) => {
     // 👈 Викликаємо реальну функцію логіну
     const success = await loginUser({
-      email: data.email,
+      email: data.email.toLowerCase(),
       password: data.password,
     });
 

@@ -11,27 +11,38 @@ import EditRightSidebar from '@/components/ArticleEdit/EditRightSidebar';
 import styles from './EditArticle.module.scss';
 import EditText from '@/components/ArticleEdit/EditText/EditText';
 
+
+
+
 const EditArticle = () => {
   const { slug } = useParams();
   const { article, isLoading, error, fetchArticleBySlug } = useSingleArticleStore();
 
+
+
   // 👇 ТЯГНЕМО ТІЛЬКИ ТЕ, ЩО ТРЕБА, З НОВОГО СТОРА
-  const { 
-    initArticleData, 
-    setTextBlocks, 
-    setMediaBlocks, 
-    saveArticle 
+  const {
+    initArticleData,
+    setTextBlocks,
+    setMediaBlocks,
+    saveArticle
   } = useEditArticleStore();
 
+  // 1. Хук для завантаження: просто кажемо бекенду "Дай статтю"
   useEffect(() => {
     window.scrollTo(0, 0);
     if (slug) {
-      fetchArticleBySlug(slug).then((data) => {
-        // 👇 ІНІЦІАЛІЗУЄМО НАШ ГЛОБАЛЬНИЙ СТОР
-        if (data) initArticleData(data); 
-      });
+      fetchArticleBySlug(slug);
     }
-  }, [slug, fetchArticleBySlug, initArticleData]);
+  }, [slug, fetchArticleBySlug]);
+
+  // 2. Хук-синхронізатор: щойно стаття завантажилась у перший стор, 
+  // ми миттєво копіюємо її дані в наш стор для редагування
+  useEffect(() => {
+    if (article) {
+      initArticleData(article); 
+    }
+  }, [article, initArticleData]);
 
   if (isLoading) return <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}><h2 className="text-white">Завантаження...</h2></div>;
   if (error || !article) return <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}><h2 className="text-danger">{error || "Статтю не знайдено"}</h2></div>;
@@ -61,19 +72,19 @@ const EditArticle = () => {
           </article>
 
           <aside className={styles.rightColumn}>
-             {/* Сайдбар сам підключений до стора всередині! */}
+            {/* Сайдбар сам підключений до стора всередині! */}
             <EditRightSidebar />
           </aside>
 
         </div>
 
-        <div className={styles.globalActions}>
-          <button className={styles.publishButton} onClick={saveArticle}> {/* 👈 Викликаємо зі стора */}
-            💾 Зберегти зміни
-          </button>
-        </div>
-      </main>
 
+      </main>
+      <div className={styles.globalActions}>
+        <button className={styles.publishButton} onClick={saveArticle}> {/* 👈 Викликаємо зі стора */}
+          💾 Зберегти зміни
+        </button>
+      </div>
       <Footer />
     </div>
   );

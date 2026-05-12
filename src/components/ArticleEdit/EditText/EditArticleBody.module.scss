@@ -17,25 +17,37 @@
   gap: 10px;
 }
 
-.editButton {
-  width: 22px;
-  height: 22px;
-  background: #1a1a1e;
-  border-radius: 0;
-  border: 1px solid #333;
+.cancelButtonExit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: 1px solid #ff4d4f; /* Червоний хакерський акцент */
+  color: #ff4d4f;
+  border-radius: 4px; 
   cursor: pointer;
-  background-image: url('/icons/Edit.svg');
-  background-size: 10px;
-  background-repeat: no-repeat;
-  background-position: center;
-  transition: 0.15s;
-  filter: invert(1);
+  transition: all 0.3s ease;
+  padding: 0;
 
   &:hover {
-    background-color: #00e87a;
-    border-color: #00e87a;
-    filter: none;
+    background-color: rgba(255, 77, 79, 0.1);
+    box-shadow: 0 0 10px rgba(255, 77, 79, 0.4); 
+    transform: scale(1.05);
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Якщо треба, підрівняй трохи dateWrapper */
+.dateWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .date {
