@@ -1,16 +1,20 @@
 import { create } from 'zustand';
 import useSingleArticleStore from './useSingleArticleStore';
+import useAuthStore from './useAuthStore';
 
+// Допоміжна функція для парсингу HTML (Tiptap) у схему бекенду
 const parseHtmlToBackendSchema = (htmlContent) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlContent, 'text/html');
   let sectionHeader = "";
   const sectionTexts = [];
   const h2 = doc.querySelector('h2');
+  
   if (h2) {
     sectionHeader = h2.textContent;
     h2.remove();
   }
+  
   const elements = doc.body.children;
   Array.from(elements).forEach(el => {
     if (el.innerHTML.trim() !== "") {
@@ -27,6 +31,7 @@ const useEditArticleStore = create((set, get) => ({
   textBlocks: [],
   mediaBlocks: [],
 
+  // --- ІНІЦІАЛІЗАЦІЯ ДАНИХ (Виправлено для відображення категорій) ---
   initArticleData: (article) => set({
     title: article.title,
     categories: article.categories || [],
@@ -38,30 +43,29 @@ const useEditArticleStore = create((set, get) => ({
   setTextBlocks: (blocks) => set({ textBlocks: blocks }),
   setMediaBlocks: (blocks) => set({ mediaBlocks: blocks }),
 
+  // --- ЗБЕРЕЖЕННЯ СТАТТІ ---
   saveArticle: async () => {
     const { categories, references, textBlocks, mediaBlocks } = get();
+    
+    // 1. Отримуємо дані про поточного користувача
+    const currentUser = useAuthStore.getState().user;
     const originalArticle = useSingleArticleStore.getState().article;
     const finalTitle = originalArticle?.title || "Оновлена стаття";
 
+    // Визначаємо slug з URL
     const pathParts = window.location.pathname.split('/').filter(Boolean);
     const slug = pathParts[pathParts.length - 2];
 
-    // --- ФУНКЦІЯ ДЛЯ ЗАВАНТАЖЕННЯ ФАЙЛУ ---
+    // Функція для завантаження зображень на Cloudinary
     const uploadImage = async (imgObject) => {
-      // Якщо це вже готове посилання на Cloudinary, просто повертаємо його
       if (imgObject.url && imgObject.url.startsWith('http') && !imgObject.url.startsWith('blob:')) {
         return { url: imgObject.url, publicId: imgObject.publicId };
       }
 
-      // Якщо є файл (file) або blob-посилання — відправляємо на сервер
       const formData = new FormData();
-      
-      // Якщо в об'єкті лежить чистий File, беремо його. 
-      // Якщо тільки blob-url, намагаємося перетворити назад у файл (або передати файл, якщо ти його зберіг)
       if (imgObject.file) {
         formData.append('file', imgObject.file);
       } else {
-        // Спроба отримати файл з blob посилання, якщо об'єкт File не був переданий
         const response = await fetch(imgObject.url);
         const blob = await response.blob();
         formData.append('file', blob, 'image.png');
@@ -73,16 +77,16 @@ const useEditArticleStore = create((set, get) => ({
       });
 
       if (!res.ok) throw new Error("Не вдалося завантажити зображення на Cloudinary");
-      return await res.json();
+      const result = await res.json();
+      return result.data || result; // Артем повертає дані в полі data
     };
 
     try {
       console.log("=== ПОЧАТОК ПІДГОТОВКИ ТА ЗАВАНТАЖЕННЯ МЕДІА ===");
 
-      // 1. ПЕРЕРОБЛЯЄМО МЕДІА-БЛОКИ (Завантажуємо нові картинки)
+      // 1. Обробка медіа-блоків
       const cleanMediaBlocks = await Promise.all(mediaBlocks.map(async (block) => {
         if (block.type === 'slider') {
-          // Всі картинки в слайдері обробляємо через uploadImage
           const uploadedImages = await Promise.all(
             (block.images || []).map(async (img) => {
               try {
@@ -93,14 +97,13 @@ const useEditArticleStore = create((set, get) => ({
                   title: String(img.label || img.title || "")
                 };
               } catch (e) {
-                console.error("Помилка при завантаженні картинки слайдера:", e);
+                console.error("Помилка слайдера:", e);
                 return null;
               }
             })
           );
-
-          const filteredImages = uploadedImages.filter(img => img !== null);
-          return filteredImages.length > 0 ? { type: 'slider', images: filteredImages } : null;
+          const filtered = uploadedImages.filter(img => img !== null);
+          return filtered.length > 0 ? { type: 'slider', images: filtered } : null;
         } 
         
         if (block.type === 'image') {
@@ -114,14 +117,14 @@ const useEditArticleStore = create((set, get) => ({
               description: String(block.description || "")
             };
           } catch (e) {
-            console.error("Помилка при завантаженні поодинокої картинки:", e);
+            console.error("Помилка картинки:", e);
             return null;
           }
         }
         return null;
       }));
 
-      // 2. ЧИСТИМО ТЕКСТ
+      // 2. Обробка текстових блоків
       const cleanTextBlocks = textBlocks.map(block => {
         const parsed = parseHtmlToBackendSchema(block.content);
         return {
@@ -131,18 +134,20 @@ const useEditArticleStore = create((set, get) => ({
         };
       });
 
-      // 3. ФОРМУЄМО ПЕЙЛОАД
+      // 3. ФОРМУЄМО ПЕЙЛОАД (Додано editorId за вимогою Артема)
       const payload = {
         title: finalTitle,
         categories: categories.filter(c => c.trim() !== ""),
         references: references.filter(r => r.trim() !== ""),
         content: [
           ...cleanTextBlocks, 
-          ...cleanMediaBlocks.filter(b => b !== null) // Викидаємо блоки, де не було картинок
-        ]
+          ...cleanMediaBlocks.filter(b => b !== null)
+        ],
+        // 👇 КЛЮЧОВЕ ОНОВЛЕННЯ: Тепер бекенд знає, хто редагує
+        editorId: currentUser?.id 
       };
 
-      console.log("ВІДПРАВЛЯЄМО ОНОВЛЕНІ ДАНІ:", payload);
+      console.log("ВІДПРАВЛЯЄМО ПЕЙЛОАД НА БЕКЕНД:", payload);
 
       const response = await fetch(`https://wikipedianestjsbackend.onrender.com/article/update/${slug}`, {
         method: 'PATCH',
@@ -156,16 +161,15 @@ const useEditArticleStore = create((set, get) => ({
         throw new Error(Array.isArray(responseData.message) ? responseData.message.join("\n") : responseData.message);
       }
 
-      alert("Статтю та зображення успішно оновлено! 🎉");
+      alert("Статтю успішно оновлено! Ваші зміни збережені в історії. 🎉");
       window.location.href = `/article/${slug}`;
 
     } catch (error) {
       console.error("SAVE ERROR:", error);
       
-      // Якщо бекенд каже, що ми не авторизовані
       if (error.message.includes('401') || error.message.toLowerCase().includes('unauthorized')) {
           alert("Ваша сесія закінчилася. Будь ласка, увійдіть знову.");
-          useAuthStore.getState().logoutUser(); // 👈 Викидаємо юзера
+          useAuthStore.getState().logoutUser();
       } else {
           alert(`Помилка:\n${error.message}`);
       }

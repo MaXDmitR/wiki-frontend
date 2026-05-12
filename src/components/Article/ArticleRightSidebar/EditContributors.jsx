@@ -1,21 +1,36 @@
-import styles from './EditContributors.module.scss';
-
-const contributors = [
-  { id: 1, avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100' },
-  { id: 2, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100' },
-  { id: 3, avatar: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100' },
-  { id: 4, avatar: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100' },
-];
+import React from 'react';
+import useSingleArticleStore from '@/store/useSingleArticleStore'; // 👈 Підключаємо стор
+import styles from './EditContributors.module.scss'; // 👈 Твій файл стилів для режиму редагування
 
 const EditContributors = () => {
+  // Дістаємо поточну статтю
+  const { article } = useSingleArticleStore();
+
+  // Беремо масив авторів (якщо він є)
+  const contributors = article?.contributors || [];
+
+  // Якщо список порожній, ховаємо блок
+  if (contributors.length === 0) return null;
+
   return (
     <div className={styles.section}>
       <h3 className={styles.sectionTitle}>Recent Contributors</h3>
       <section className={styles.block}>
         <div className={styles.avatarGroup}>
-          {contributors.map((user) => (
-            <img key={user.id} src={user.avatar} alt="contributor" className={styles.avatar} />
-          ))}
+          {contributors.map((user) => {
+            // Генерація красивої заглушки, якщо Артем або ти не завантажили аватарку
+            const avatarUrl = user.avatar?.url || 'https://ui-avatars.com/api/?name=' + (user.name || 'U') + '&background=00e676&color=0a0a0a';
+
+            return (
+              <img 
+                key={user.id} 
+                src={avatarUrl} 
+                alt={user.name || "contributor"} 
+                title={user.name} // Підказка з ім'ям при наведенні
+                className={styles.avatar} 
+              />
+            );
+          })}
         </div>
       </section>
     </div>
