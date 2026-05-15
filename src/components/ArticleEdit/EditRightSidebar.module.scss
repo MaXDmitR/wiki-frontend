@@ -99,11 +99,12 @@
 .removeBtn {
   background: none;
   border: none;
-  color: #333;
+  color: #00e87a;
   cursor: pointer;
   display: flex;
   padding: 2px;
   transition: 0.15s;
+  opacity: 0.6;
 
-  &:hover { color: #00e87a; }
+  &:hover { opacity: 1; color: #ff4455; }
 }
