@@ -108,3 +108,48 @@
 
   &:hover { opacity: 1; color: #ff4455; }
 }
+
+
+.historyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px; /* Відступ від блоку контриб'юторів */
+  
+  /* Строгий програмістський дизайн */
+  background: #111114;
+  border: 2px solid #2a2a2e;
+  padding: 12px 16px;
+  border-radius: 0; /* Суворі прямі кути */
+  box-shadow: 3px 3px 0 #1a1a1e; /* Квадратна тінь, як у блоках */
+  
+  /* Текст */
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: #00e87a; /* Неоновий зелений */
+  letter-spacing: 1px;
+  cursor: pointer;
+  
+  transition: all 0.15s ease;
+
+  .historyIcon {
+    color: #00e87a;
+  }
+
+  /* Ховер ефект: кнопка ніби "оживає" і підсвічується */
+  &:hover {
+    transform: translate(-2px, -2px); /* Трохи піднімається вліво-вгору */
+    box-shadow: 5px 5px 0 rgba(0, 232, 122, 0.2); /* Зелена квадратна тінь */
+    border-color: #00e87a; /* Рамка стає зеленою */
+    background: #0c0c0d;
+  }
+  
+  /* Ефект натискання (клік) */
+  &:active {
+    transform: translate(2px, 2px); /* Втискається назад */
+    box-shadow: 1px 1px 0 rgba(0, 232, 122, 0.2);
+  }
+}

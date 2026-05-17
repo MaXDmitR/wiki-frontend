@@ -1,0 +1,267 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.modal {
+  background: #0c0c0d;
+  border: 2px solid #2a2a2e;
+  width: 90%;
+  max-width: 600px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 8px 8px 0 #111114;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 2px solid #2a2a2e;
+  background: #111114;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #00e87a;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+
+  &:hover { color: #ff4a4a; }
+}
+
+.content {
+  padding: 30px 20px;
+  overflow-y: auto;
+  
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-track { background: #0c0c0d; }
+  &::-webkit-scrollbar-thumb { background: #2a2a2e; border-radius: 0; }
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 20px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 17px;
+    width: 2px;
+    background: #2a2a2e;
+    z-index: 1;
+  }
+}
+
+.timelineItem {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  background: #0c0c0d;
+  border: 2px solid #00e87a;
+  border-radius: 0; /* Квадратна точка! */
+  margin-top: 17px;
+  flex-shrink: 0;
+  margin-left: 12px;
+  box-shadow: 0 0 8px rgba(0, 232, 122, 0.4);
+}
+
+.editCard {
+  flex: 1;
+  background: #111114;
+  border: 1px solid #2a2a2e;
+  transition: border-color 0.2s;
+
+  &:hover { border-color: #00e87a; }
+}
+
+.expandedCard {
+  border-color: #00e87a;
+  box-shadow: 4px 4px 0 rgba(0, 232, 122, 0.1);
+}
+
+.cardHeader {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  outline: 1px solid #2a2a2e;
+}
+
+.editInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.authorName {
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  margin: 0;
+}
+
+.editDate {
+  color: #666;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  margin: 0;
+}
+
+.expandIcon {
+  color: #888;
+}
+
+/* === РОЗГОРНУТІ ДЕТАЛІ === */
+.cardDetails {
+  padding: 0 16px 16px 16px;
+  border-top: 1px dashed #2a2a2e;
+  margin-top: 5px;
+  padding-top: 16px;
+}
+
+.diffSection {
+  margin-bottom: 16px;
+}
+
+.diffLabel {
+  color: #888;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+}
+
+.diffList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #ccc;
+  
+  li {
+    margin-bottom: 6px;
+    background: #1a1a1e;
+    padding: 6px 10px;
+    border-left: 2px solid #444;
+  }
+}
+
+.removed { color: #ff4a4a; text-decoration: line-through; }
+.added { color: #00e87a; }
+.arrow { color: #888; margin: 0 5px; }
+
+.restoreBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(0, 232, 122, 0.1);
+  color: #00e87a;
+  border: 1px solid #00e87a;
+  padding: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #00e87a;
+    color: #111114;
+  }
+}
+
+/* ... твій попередній код SCSS ... */
+
+/* Підсвічування точки на таймлайні для поточної версії */
+.currentDot {
+  background: #00e87a !important; /* Робимо повністю зеленою */
+  box-shadow: 0 0 15px #00e87a, 0 0 5px #00e87a; /* Посилене неонове світіння */
+  border-color: #0c0c0d !important;
+}
+
+/* Рамка поточної картки */
+.currentCard {
+  border-color: rgba(0, 232, 122, 0.4) !important;
+  background: #121915 !important; /* Легкий глибокий зеленуватий відтінок фону */
+}
+
+/* Маленький неоновий бейдж біля імені автора */
+.currentBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #111114;
+  background: #00e87a;
+  padding: 2px 6px;
+  margin-left: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px rgba(0, 232, 122, 0.3);
+}
+
+/* Заглушка замість кнопки Restore */
+.currentActiveLabel {
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #666;
+  padding: 10px;
+  border: 1px dashed #2a2a2e;
+  background: #111114;
+  letter-spacing: 1px;
+}
