@@ -30,19 +30,21 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.85); /* Напівпрозорий темний фон */
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000; /* Гарантуємо, що він поверх всього */
-  cursor: pointer; /* Клік поза картинкою закриває */
+  align-items: center;
+  z-index: 9999; /* Щоб точно перекрити хедер і все інше */
+  cursor: zoom-out; /* Показує користувачу, що клік сюди зменшить/закриє картинку */
 }
 
 .fullImage {
-  max-width: 80%;
-  max-height: 80%;
-  border-radius: 20px;
-  object-fit: contain; /* Зберігаємо пропорції */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  cursor: default; /* На самій картинці pointer не потрібен */
+  max-width: 90vw; /* Максимальна ширина — 90% від вікна браузера */
+  max-height: 90vh; /* Максимальна висота — 90% від вікна браузера */
+  object-fit: contain; /* Картинка масштабується пропорційно і не обрізається */
+  
+  /* За бажанням — можна додати легку тінь, щоб відірвати картинку від фону */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); 
+  border-radius: 4px;
+  cursor: default; /* Щоб на самій картинці курсор був звичайним */
 }
