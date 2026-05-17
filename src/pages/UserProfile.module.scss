@@ -273,3 +273,123 @@
   font-size: 10px;
   color: #444;
 }
+
+.editedSection {
+  margin-top: 40px;
+}
+
+/* === СТИЛІ РЕЖИМУ РЕДАГУВАННЯ === */
+.editingMode {
+  border-color: #ff9800 !important; /* Помаранчевий контур при редагуванні */
+  box-shadow: 4px 4px 0 rgba(255, 152, 0, 0.15) !important;
+  
+  .cardTerminalHeader {
+    color: #ff9800;
+  }
+}
+
+.avatarWrapperRelative {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #2a2a2e;
+}
+
+.avatarEditable {
+  cursor: pointer;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.5; }
+}
+
+.avatarOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  
+  &:hover, .avatarWrapperRelative:hover & {
+    opacity: 1;
+  }
+}
+
+.editInputGroup {
+  width: 100%;
+  margin-bottom: 10px;
+
+  label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #00e87a;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+}
+
+.terminalInput {
+  width: 100%;
+  background: #0c0c0d;
+  border: 1px solid #2a2a2e;
+  color: #fff;
+  padding: 8px 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #00e87a;
+  }
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.saveBtn, .cancelBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.saveBtn {
+  background: rgba(0, 232, 122, 0.1);
+  color: #00e87a;
+  border-color: #00e87a;
+
+  &:hover {
+    background: #00e87a;
+    color: #111114;
+  }
+}
+
+.cancelBtn {
+  background: transparent;
+  color: #888;
+  border-color: #2a2a2e;
+
+  &:hover {
+    color: #ff4a4a;
+    border-color: #ff4a4a;
+  }
+}

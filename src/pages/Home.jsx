@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import HeroSection from '@/components/Home/HeroSection/HeroSection';
 import CategoriesSection from '@/components/Home/CategoriesSection/CategoriesSection';
 import ArticleCard from '@/components/Home/ArticleCard/ArticleCard';
+import TopContributors from '@/components/Home/TopContributors/TopContributors'; // 👈 НАШ НОВИЙ ІМПОРТ
 import useArticleStore from '@/store/useArticleStore';
 
 import Footer from "@/components/Common/Footer/Footer";
@@ -12,7 +13,6 @@ const Home = () => {
   const hasFetchedRandom = useRef(false);
 
   useEffect(() => {
-
     if (!hasFetchedRandom.current) {
       fetchRandomArticle();
       hasFetchedRandom.current = true; 
@@ -23,26 +23,18 @@ const Home = () => {
     ? new Date(featuredArticle.date).toLocaleDateString('uk-UA') 
     : '';
 
-
   const getArticleDescription = () => {
     if (!featuredArticle?.content) return "Опис відсутній";
-    
-
     const firstSection = featuredArticle.content.find(block => block.type === 'section');
-    
     if (firstSection && firstSection.sectionTexts?.length > 0) {
       return firstSection.sectionTexts[0]; 
     }
     return "Опис відсутній";
   };
 
-
   const getArticleImage = () => {
     if (!featuredArticle?.content) return "/js.svg"; 
-    
-
     const firstImage = featuredArticle.content.find(block => block.type === 'image');
-    
     return firstImage ? firstImage.url : "/js.svg";
   };
 
@@ -50,6 +42,7 @@ const Home = () => {
     <div> 
       <ArticleHeader hasSearch={false} />
       <HeroSection />
+      
       <main className="container position-relative z-3 my-5">
         <div className="mb-5">
           {featuredArticle ? (
@@ -65,11 +58,19 @@ const Home = () => {
           )}
         </div>
 
+        {/* Секція категорій */}
         <div className="mb-5">
           <CategoriesSection />
         </div>
-        <Footer />
+
+        {/* 👇 НАША НОВА СЕКЦІЯ ТОП КОНТРИБ'ЮТОРІВ */}
+        <div className="mb-5">
+          <TopContributors />
+        </div>
+
       </main>
+      
+      <Footer />
     </div>
   );
 };
