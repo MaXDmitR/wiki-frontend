@@ -1,3 +1,4 @@
+/* Залишаємо без змін */
 .section {
   display: flex;
   flex-direction: column;
@@ -26,15 +27,88 @@
   padding: 4px 0;
 }
 
-.avatar {
+/* 👇 НОВИЙ КЛАС ОБГОРТКИ (тут живе тултип) */
+.avatarItem {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  overflow: visible;
+
+  /* Накладання картинок одна на одну */
+  &:not(:first-child) { margin-left: -8px; }
+
+  /* Ховер ефект для обгортки (щоб z-index працював) */
+  &:hover {
+    z-index: 2;
+    
+    /* При наведенні на обгортку анімуємо картинку всередині */
+    .avatarImg {
+      transform: translateY(-3px) scale(1.05);
+      outline-color: #00e87a;
+    }
+  }
+
+  /* Тултип у стилі ТЕРМІНАЛУ */
+  &::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    
+    /* Програмістський дизайн */
+    background-color: #111114;
+    border: 1px solid #00e87a;
+    color: #00e87a;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0 rgba(0, 232, 122, 0.2); /* "Квадратна" тінь */
+    
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+  }
+
+  /* Стрілочка тултипу */
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    border-width: 5px;
+    border-style: solid;
+    /* Зелена стрілочка, що вказує вниз */
+    border-color: #00e87a transparent transparent transparent; 
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+  }
+
+  /* Поява тултипу при наведенні */
+  &:hover::after,
+  &:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 👇 КЛАС ДЛЯ САМОЇ КАРТИНКИ */
+.avatarImg {
   width: 36px;
   height: 36px;
-  border-radius: 0;
+  border-radius: 0; /* Залишаємо квадратними */
   border: 2px solid #0c0c0d;
   object-fit: cover;
   outline: 1px solid #2a2a2e;
-  transition: transform 0.15s;
-
-  &:not(:first-child) { margin-left: -8px; }
-  &:hover { transform: translateY(-3px) scale(1.05); z-index: 2; outline-color: #00e87a; }
+  transition: transform 0.15s, outline-color 0.15s;
 }

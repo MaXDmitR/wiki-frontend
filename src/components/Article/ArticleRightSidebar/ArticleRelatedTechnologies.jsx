@@ -22,7 +22,7 @@ const ArticleRelatedTechnologies = ({ relatedArticles = [] }) => {
               to={`/article/${relArticle.slug}`}
               key={relArticle.id}
               className={styles.techItem}
-              title={relArticle.title}
+              data-title={relArticle.title} // 👈 Змінили title на data-title
             >
               <img
                 src={getImage(relArticle.content)}

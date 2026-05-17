@@ -1,15 +1,11 @@
 import React from 'react';
-import useSingleArticleStore from '@/store/useSingleArticleStore'; // 👈 Підключаємо стор
-import styles from './EditContributors.module.scss'; // 👈 Твій файл стилів для режиму редагування
+import useSingleArticleStore from '@/store/useSingleArticleStore';
+import styles from './EditContributors.module.scss';
 
 const EditContributors = () => {
-  // Дістаємо поточну статтю
   const { article } = useSingleArticleStore();
-
-  // Беремо масив авторів (якщо він є)
   const contributors = article?.contributors || [];
 
-  // Якщо список порожній, ховаємо блок
   if (contributors.length === 0) return null;
 
   return (
@@ -18,17 +14,21 @@ const EditContributors = () => {
       <section className={styles.block}>
         <div className={styles.avatarGroup}>
           {contributors.map((user) => {
-            // Генерація красивої заглушки, якщо Артем або ти не завантажили аватарку
             const avatarUrl = user.avatar?.url || 'https://ui-avatars.com/api/?name=' + (user.name || 'U') + '&background=00e676&color=0a0a0a';
 
             return (
-              <img 
+              // 👇 Обгорнули в div для тултипу
+              <div 
                 key={user.id} 
-                src={avatarUrl} 
-                alt={user.name || "contributor"} 
-                title={user.name} // Підказка з ім'ям при наведенні
-                className={styles.avatar} 
-              />
+                className={styles.avatarItem}
+                data-title={user.name} 
+              >
+                <img 
+                  src={avatarUrl} 
+                  alt={user.name || "contributor"} 
+                  className={styles.avatarImg} 
+                />
+              </div>
             );
           })}
         </div>

@@ -1,15 +1,11 @@
 import React from 'react';
-import useSingleArticleStore from '@/store/useSingleArticleStore'; // 👈 Підключаємо стор
+import useSingleArticleStore from '@/store/useSingleArticleStore';
 import styles from './ArticleRightSidebar.module.scss';
 
 const ArticleContributors = () => {
-  // 1. Дістаємо поточну статтю з "мозку"
   const { article } = useSingleArticleStore();
-
-  // 2. Беремо контриб'юторів (або порожній масив, якщо дані ще вантажаться)
   const contributors = article?.contributors || [];
 
-  // Якщо контриб'юторів немає, просто не малюємо цей блок, щоб не було порожніх дірок
   if (contributors.length === 0) return null;
 
   return (
@@ -19,17 +15,21 @@ const ArticleContributors = () => {
       <section className={styles.block}>
         <div className={styles.avatarGroup}>
           {contributors.map((user) => {
-            // Перевіряємо, чи є в користувача аватар. Якщо ні - ставимо красиву заглушку
             const avatarUrl = user.avatar?.url || 'https://ui-avatars.com/api/?name=' + (user.name || 'U') + '&background=00e676&color=0a0a0a';
 
             return (
-              <img
+              // 👇 Обгорнули картинку в div, як ми це робили з Link
+              <div
                 key={user.id}
-                src={avatarUrl}
-                alt={user.name || "contributor"}
-                title={user.name} 
-                className={styles.avatar}
-              />
+                className={styles.avatarItem} // Новий клас обгортки
+                data-title={user.name}        // Тултип тепер тут
+              >
+                <img
+                  src={avatarUrl}
+                  alt={user.name || "contributor"}
+                  className={styles.avatarImg} // Клас самої картинки
+                />
+              </div>
             );
           })}
         </div>

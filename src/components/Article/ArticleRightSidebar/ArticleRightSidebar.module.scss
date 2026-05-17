@@ -37,7 +37,8 @@
   padding: 5px 0;
 }
 
-.avatar,
+/* 1. СПІЛЬНІ СТИЛІ ДЛЯ ОБГОРТОК (Кружечки з тултипами) */
+.avatarItem,
 .techItem {
   width: 60px;
   height: 60px;
@@ -47,15 +48,69 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow: visible; /* Щоб тултип міг вилізти за межі */
   transition: transform 0.2s ease, z-index 0.2s;
+  position: relative;
+  cursor: pointer;
 
   &:not(:first-child) { margin-left: -20px; }
   &:hover { transform: translateY(-3px); z-index: 2; }
+
+  /* Сама підказка (тултип) */
+  &::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background-color: #222;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Маленький трикутничок знизу підказки */
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #222 transparent transparent transparent;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+  }
+
+  &:hover::after,
+  &:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
-.avatar { object-fit: cover; }
-.techItem { font-size: 26px; }
+/* 2. СТИЛІ ДЛЯ САМИХ КАРТИНОК ВСЕРЕДИНІ */
+.avatarImg,
+.techItem img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* 👈 Жорстко обрізаємо картинки по колу тут! */
+  object-fit: cover;
+}
 
 .techIcon {
   display: flex;
