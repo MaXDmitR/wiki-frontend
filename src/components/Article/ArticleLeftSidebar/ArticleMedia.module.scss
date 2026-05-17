@@ -39,9 +39,14 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 3.4;
+  line-height: 1.5;
+  text-align: center;
+  color: #a0a0a0;
+  max-width: 190px;
+  word-break: break-word;
+  padding: 4px 0;
 }
 
 .NavBtn {
@@ -56,18 +61,11 @@
   background-position: center;
   transition: all 0.2s ease 0s;
 
-  &:hover {
-    transform: scale(1.5);
-  }
+  &:hover { transform: scale(1.5); }
 }
 
-.prevBtn {
-  background-image: url("/icons/prev.svg");
-}
-
-.nextBtn {
-  background-image: url("/icons/next.svg");
-}
+.prevBtn { background-image: url("/icons/prev.svg"); }
+.nextBtn { background-image: url("/icons/next.svg"); }
 
 .overlay {
   position: fixed;
@@ -81,6 +79,7 @@
   align-items: center;
   z-index: 9999; /* Щоб точно перекрити хедер і все інше */
   cursor: zoom-out; /* Показує користувачу, що клік сюди зменшить/закриє картинку */
+
 }
 
 .fullImage {
