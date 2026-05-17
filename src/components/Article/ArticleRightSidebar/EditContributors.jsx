@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // 👈 Додали імпорт Link
 import useSingleArticleStore from '@/store/useSingleArticleStore';
 import styles from './EditContributors.module.scss';
 
@@ -17,8 +18,9 @@ const EditContributors = () => {
             const avatarUrl = user.avatar?.url || 'https://ui-avatars.com/api/?name=' + (user.name || 'U') + '&background=00e676&color=0a0a0a';
 
             return (
-              // 👇 Обгорнули в div для тултипу
-              <div 
+              /* 👇 Замінили div на Link і прокинули динамічний email */
+              <Link 
+                to={`/user/${user.email}`}
                 key={user.id} 
                 className={styles.avatarItem}
                 data-title={user.name} 
@@ -28,7 +30,7 @@ const EditContributors = () => {
                   alt={user.name || "contributor"} 
                   className={styles.avatarImg} 
                 />
-              </div>
+              </Link>
             );
           })}
         </div>

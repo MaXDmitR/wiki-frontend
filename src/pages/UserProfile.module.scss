@@ -1,0 +1,275 @@
+.pageWrapper {
+  background-color: #0c0c0d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Наш новий головний двоколонковий контейнер */
+.mainGridContainer {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  width: 100%;
+  max-width: 1200px;
+  flex-grow: 1;
+  align-items: flex-start;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+// === ЛІВА КОЛОНКА (Картка терміналу) ===
+.leftColumn {
+  width: 320px;
+  flex-shrink: 0;
+
+  @media (max-width: 992px) {
+    width: 100%;
+    max-width: 550px;
+  }
+}
+
+.profileCard {
+  background: #111114;
+  border: 2px solid #2a2a2e;
+  box-shadow: 4px 4px 0 rgba(0, 232, 122, 0.15);
+  width: 100%;
+}
+
+.cardTerminalHeader {
+  background: #0c0c0d;
+  border-bottom: 2px solid #2a2a2e;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #666;
+  letter-spacing: 1px;
+
+  .dots {
+    display: flex;
+    gap: 6px;
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: #2a2a2e;
+      border-radius: 50%;
+      &:first-child { background: #ff4a4a; }
+    }
+  }
+}
+
+.cardBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column; // Картка тепер вертикальна і компактна
+  gap: 20px;
+  align-items: center;
+}
+
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileAvatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 2px solid #2a2a2e;
+}
+
+.roleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  letter-spacing: 1px;
+  
+  &.admin { background: rgba(255, 74, 74, 0.1); color: #ff4a4a; border: 1px solid #ff4a4a; }
+  &.user { background: rgba(0, 232, 122, 0.1); color: #00e87a; border: 1px solid #00e87a; }
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  border-top: 1px dashed #2a2a2e;
+  padding-top: 16px;
+}
+
+.username {
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .inputIcon { color: #00e87a; }
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  .icon { color: #555; margin-top: 2px; }
+
+  label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #555;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+  }
+
+  p { color: #ccc; font-size: 13px; margin: 0; }
+  .idText { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #666; }
+}
+
+.editBtn {
+  width: 100%;
+  background: #1a1a1e;
+  border: 1px solid #2a2a2e;
+  color: #666;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    border-color: #00e87a;
+    color: #00e87a;
+    background: #0c0c0d;
+  }
+}
+
+// === ПРАВА КОЛОНКА (Фірмові Квадратні Статті) ===
+.rightColumn {
+  flex: 1;
+  width: 100%;
+}
+
+.contributionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: #00e87a;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.emptyArticles {
+  background: #111114;
+  border: 2px solid #2a2a2e;
+  padding: 30px;
+  text-align: center;
+  color: #555;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  box-shadow: 3px 3px 0 #1a1a1e;
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 180px)); // Твої улюблені строгі квадрати
+  gap: 16px;
+
+  @media (max-width: 576px) {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 140px));
+    justify-content: center;
+  }
+}
+
+.articleSquareCard {
+  background: #111114;
+  border: 2px solid #2a2a2e;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  height: 240px;
+  box-shadow: 3px 3px 0 #1a1a1e;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: #00e87a;
+    box-shadow: 4px 4px 0 rgba(0, 232, 122, 0.2);
+    
+    .squareImg { transform: scale(1.05); }
+  }
+}
+
+.squareImageWrapper {
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  border-bottom: 2px solid #2a2a2e;
+  background: #0c0c0d;
+}
+
+.squareImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.squareMeta {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.articleTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.articleDate {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #444;
+}

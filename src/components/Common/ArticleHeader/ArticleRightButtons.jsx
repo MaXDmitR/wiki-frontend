@@ -28,7 +28,7 @@ const ArticleRightButtons = () => {
   return (
     <div className={`${styles.topNav} d-flex align-items-center gap-3 position-relative`}>
 
-      
+
       {/* Кнопка з кубиком тепер має onClick */}
       <button className={styles.iconBtn} onClick={handleRandomClick} title="Випадкова стаття">
         <FaDiceFive size={20} />
@@ -58,9 +58,9 @@ const ArticleRightButtons = () => {
               />
             </div>
             <p className={styles.name}>{user.name}</p>
-            {/*<button className={styles.btn}>
+            <Link to={`/user/${user.email}`} className={styles.btn} onClick={() => setOpen(false)}>
               Подивитися профіль
-            </button>*/}
+            </Link>
             <button className={`${styles.btn} ${styles.btnDanger}`} onClick={toggleDevAuth}>
               Вийти
             </button>

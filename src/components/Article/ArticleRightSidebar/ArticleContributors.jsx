@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // 👈 Додали імпорт Link
 import useSingleArticleStore from '@/store/useSingleArticleStore';
 import styles from './ArticleRightSidebar.module.scss';
 
@@ -18,18 +19,19 @@ const ArticleContributors = () => {
             const avatarUrl = user.avatar?.url || 'https://ui-avatars.com/api/?name=' + (user.name || 'U') + '&background=00e676&color=0a0a0a';
 
             return (
-              // 👇 Обгорнули картинку в div, як ми це робили з Link
-              <div
+              /* 👇 Замінили div на Link і прокинули динамічний email */
+              <Link
+                to={`/user/${user.email}`}
                 key={user.id}
-                className={styles.avatarItem} // Новий клас обгортки
-                data-title={user.name}        // Тултип тепер тут
+                className={styles.avatarItem} 
+                data-title={user.name}        
               >
                 <img
                   src={avatarUrl}
                   alt={user.name || "contributor"}
-                  className={styles.avatarImg} // Клас самої картинки
+                  className={styles.avatarImg} 
                 />
-              </div>
+              </Link>
             );
           })}
         </div>

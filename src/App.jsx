@@ -4,6 +4,7 @@ import Article from './pages/Article';
 import EditArticle from './pages/EditArticle';
 import Auth from './pages/Auth';
 import ProtectedRoute from '@/components/Common/ProtectedRoute';
+import UserProfile from '@/pages/UserProfile';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/auth" element={<Auth mode="choice" />} />
             <Route path="/login" element={<Auth mode="login" />} />
             <Route path="/register" element={<Auth mode="register" />} />
+            <Route path="/user/:email" element={<UserProfile />} />
           </Routes>
         </main>
       </div>
