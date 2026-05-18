@@ -57,17 +57,17 @@ const EditArticle = () => {
   );
 
   // Форматуємо дані для виводу в банер
-  let commitInfoText = "попередню версію";
+  let commitInfoText = "previous version";
   if (activeCommit) {
     if (activeCommit.id === 'initial-commit') {
-      commitInfoText = `ОРИГІНАЛЬНУ ВЕРСІЮ СТВОРЕННЯ СТАТТІ`;
+      commitInfoText = `ORIGINAL VERSION OF THE ARTICLE`;
     } else {
       const commitDate = new Date(activeCommit.dataRedaction);
       const fDate = commitDate.toLocaleDateString('uk-UA');
       const fTime = commitDate.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
-      const author = activeCommit.redactedBy?.name || "Користувач";
+      const author = activeCommit.redactedBy?.name || "User";
       
-      commitInfoText = `версію від [ ${author} ] від ${fDate} @ ${fTime}`;
+      commitInfoText = `Version from [ ${author} ] on ${fDate} @ ${fTime}`;
     }
   }
 
@@ -81,10 +81,10 @@ const EditArticle = () => {
           <div className={styles.bannerContent}>
             <FiAlertTriangle className={styles.bannerIcon} size={18} />
             <p className={styles.bannerText}>
-              <strong>[ ROLLBACK_MODE ]</strong> Ви завантажили <span className={styles.commitHighlight}>{commitInfoText}</span>. 
-              Ці зміни є тимчасовими в редакторі. Натисніть <span>"Зберегти зміни"</span> внизу, щоб застосувати їх, або 
+              <strong>[ ROLLBACK_MODE ]</strong> You have loaded <span className={styles.commitHighlight}>{commitInfoText}</span>. 
+              These changes are temporary in the editor. Click <span>"Save changes"</span> below to apply them, or 
               <button onClick={() => window.location.reload()} className={styles.reloadBtn}>
-                <FiRefreshCw size={12} /> скасувати відкат
+                <FiRefreshCw size={12} /> cancel rollback
               </button>
             </p>
           </div>
@@ -120,7 +120,7 @@ const EditArticle = () => {
       
       <div className={styles.globalActions}>
         <button className={styles.publishButton} onClick={saveArticle}> 
-          💾 Зберегти зміни
+          💾 Save Changes
         </button>
       </div>
       <Footer />

@@ -67,7 +67,7 @@ const ArticleHistoryModal = ({ isOpen, onClose, history = [] }) => {
 
     const handleRestore = (edit) => {
         const confirmRestore = window.confirm(
-            "[ SYSTEM_WARNING ]\nВи дійсно хочете відкотитися до цієї версії?\nУсі поточні незбережені зміни в редакторі будуть замінені."
+            "[ SYSTEM_WARNING ]\nAre you sure you want to rollback to this version?\nAll current unsaved changes in the editor will be replaced."
         );
 
         if (confirmRestore) {
@@ -87,7 +87,7 @@ const ArticleHistoryModal = ({ isOpen, onClose, history = [] }) => {
                 }
             });
 
-            alert("✅ ДАНІ ВІДНОВЛЕНО!\nПеревірте поля редактора. Щоб застосувати ці зміни назавжди, натисніть 'Save' на головній панелі.");
+            alert("✅ DATA RESTORED!\nCheck the editor fields. To apply these changes permanently, click 'Save Changes' on the main panel.");
             onClose();
         }
     };
