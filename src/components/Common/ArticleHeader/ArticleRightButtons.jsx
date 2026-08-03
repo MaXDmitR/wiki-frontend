@@ -59,10 +59,10 @@ const ArticleRightButtons = () => {
             </div>
             <p className={styles.name}>{user.name}</p>
             <Link to={`/user/${user.email}`} className={styles.btn} onClick={() => setOpen(false)}>
-              Подивитися профіль
+              Check profile
             </Link>
             <button className={`${styles.btn} ${styles.btnDanger}`} onClick={toggleDevAuth}>
-              Вийти
+              Log out
             </button>
           </div>
         </div>

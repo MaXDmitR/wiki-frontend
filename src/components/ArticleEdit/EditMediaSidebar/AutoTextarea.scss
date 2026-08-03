@@ -1,0 +1,34 @@
+.autoTextarea {
+  width: 100%;
+  min-height: 40px; /* Початкова висота для одного рядка */
+  max-height: 200px; /* Ліміт висоти, після якого з'явиться скрол */
+  
+  overflow-y: auto; /* Скрол буде з'являтися тільки тоді, коли текст перевищить max-height */
+  resize: none; /* Забороняємо користувачу тягати поле за куточок вручну */
+  
+  padding: 10px;
+  background: #111114;
+  color: white;
+  border: 1px solid #2a2a2e;
+  border-radius: 8px;
+  
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+
+  // Стилізація скролбару, щоб виглядав сучасно на темному тлі
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #2a2a2e;
+    border-radius: 10px;
+  }
+
+  &:focus {
+    border-color: #00e87a;
+    outline: none;
+  }
+}

@@ -23,8 +23,11 @@
 .Slider { flex: 1; max-width: 500px; }
 
 .Slide {
-  padding-top: 14px;
+  /* ЗМІНЕНО/ДОДАНО: */
+  padding-top: 18px;    /* Трішки збільшили, щоб хрестик точно не різався */
+  padding-bottom: 18px; /* Додали відступ знизу для поля вводу */
   padding-left: 12px;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +39,7 @@
   margin-bottom: 8px;
   max-width: 190px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .Picture {
@@ -110,9 +114,17 @@
   border-radius: 0;
   color: #00e87a;
   font-family: 'IBM Plex Mono', monospace;
+  box-sizing: border-box;
+
+  resize: none;         /* Забороняє користувачу тягати поле мишкою */
+  overflow: hidden;     /* Ховає скрол-бар, бо поле саме змінює висоту */
+  font-family: inherit; /* Щоб шрифт був таким самим, як і скрізь */
+  min-height: 40px;     /* Мінімальна висота для одного рядка */
 
   &::placeholder { color: #333; }
   &:focus { outline: none; border-color: #00e87a; }
+
+
 }
 
 .NavBtn {

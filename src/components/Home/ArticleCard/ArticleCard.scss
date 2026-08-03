@@ -1,10 +1,30 @@
 .article-card {
   width: 100%;
   position: relative;
-
   background-color: transparent; 
-  padding-top: 200px;
-  padding-bottom: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  
+  /* --- НОВІ ВЛАСТИВОСТІ --- */
+  border-radius: 16px; /* Закруглені кути виглядають сучасніше */
+  border: 1px solid transparent; /* Невидима рамка, щоб картка не "стрибала" при наведенні */
+  transition: all 0.3s ease; /* Плавна анімація для всіх змін */
+}
+
+/* --- ЕФЕКТ ПРИ НАВЕДЕННІ --- */
+.article-card:hover {
+  /* Легке підсвічування фону, щоб виділити межі картки */
+  background-color: rgba(255, 255, 255, 0.03); 
+  
+  /* Тонка світла окантовка */
+  border: 1px solid rgba(255, 255, 255, 0.15); 
+  
+  /* Ефект світіння (тінь назовні) */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 
+              0 0 40px rgba(255, 255, 255, 0.05);
+              
+  /* Опціонально: ефект "підняття" картки */
+  transform: translateY(-5px); 
 }
 
 .article-card__header {

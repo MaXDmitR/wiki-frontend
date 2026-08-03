@@ -6,12 +6,44 @@ import "swiper/css/navigation";
 import styles from "./EditArticleMedia.module.scss";
 import { createPortal } from "react-dom";
 
+// === НОВИЙ КОМПОНЕНТ ДЛЯ АВТО-ВИСОТИ ===
+const AutoTextarea = ({ value, onChange, placeholder, className }) => {
+  const textareaRef = useRef(null);
+
+  const adjustHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto"; // Скидаємо висоту
+      textarea.style.height = `${textarea.scrollHeight}px`; // Підлаштовуємо під контент
+    }
+  };
+
+  useEffect(() => {
+    adjustHeight();
+  }, [value]);
+
+  return (
+    <textarea
+      ref={textareaRef}
+      className={className}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      rows={1}
+    />
+  );
+};
+// =========================================
+
 const EditArticleMedia = ({ slides = [], onChange }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
   const [navReady, setNavReady] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
+  
+  // ДОДАНО: Стан для збереження самого Swiper-а
+  const [swiperInstance, setSwiperInstance] = useState(null);
 
   const [media, setMedia] = useState([]);
 
@@ -60,6 +92,13 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
     );
     setMedia(updated);
     onChange(updated);
+
+    // ДОДАНО: Змушуємо Swiper перерахувати висоту після того, як текст змінився
+    if (swiperInstance) {
+      setTimeout(() => {
+        swiperInstance.updateAutoHeight(150);
+      }, 10);
+    }
   };
 
   return (
@@ -73,6 +112,7 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
             <img
               className={styles.fullImage}
               src={activeImage}
+              alt="Full size view"
             />
           </div>,
           document.body
@@ -88,6 +128,7 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
           />
 
           <Swiper
+            onSwiper={setSwiperInstance} // ДОДАНО: Зберігаємо Swiper, коли він завантажився
             className={styles.Slider}
             spaceBetween={10}
             slidesPerView={1}
@@ -96,9 +137,9 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
             navigation={
               navReady
                 ? {
-                  prevEl: prevRef.current,
-                  nextEl: nextRef.current,
-                }
+                    prevEl: prevRef.current,
+                    nextEl: nextRef.current,
+                  }
                 : false
             }
             autoHeight
@@ -115,19 +156,15 @@ const EditArticleMedia = ({ slides = [], onChange }) => {
                     className={styles.Picture}
                     src={item.url}
                     onClick={() => setActiveImage(item.url)}
+                    alt="Slide"
                   />
                 </div>
 
-                <input
+                <AutoTextarea
                   className={styles.Label}
                   placeholder="Add description..."
                   value={item.label}
-                  onChange={(e) =>
-                    handleLabelChange(
-                      item.id,
-                      e.target.value
-                    )
-                  }
+                  onChange={(val) => handleLabelChange(item.id, val)}
                 />
               </SwiperSlide>
             ))}

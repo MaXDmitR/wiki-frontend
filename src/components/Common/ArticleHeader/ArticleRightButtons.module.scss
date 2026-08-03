@@ -68,6 +68,7 @@
 
 .btn {
   position: relative;
+  display: block;               /* Додано: щоб <a> сприймав ширину та відступи */
   width: 100%;
   padding: 10px;  
   margin-top: 10px;
@@ -78,6 +79,11 @@
   border-right: 2px solid white;
   overflow: hidden;
   cursor: pointer;
+  text-decoration: none;        /* Додано: щоб прибрати підкреслення у посилання */
+  text-align: center;           /* Додано: щоб текст був по центру, як у кнопки */
+  box-sizing: border-box;       /* Додано: щоб padding не ламав ширину 100% */
+  font-family: inherit;         /* Додано: щоб шрифти збігалися */
+  font-size: 16px;              /* Можете задати свій розмір */
 
   &::after {
     content: "";
@@ -96,7 +102,6 @@
     }
   }
 }
-
 .btnDanger {
   background-color: red;
 }

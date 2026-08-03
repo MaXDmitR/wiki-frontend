@@ -11,11 +11,7 @@ import ArticleRightSidebar from '@/components/Article/ArticleRightSidebar/Articl
 import styles from './Article.module.scss';
 
 const Article = () => {
-
   const { slug } = useParams();
-
-
-
   const { article, relatedArticles, isLoading, error, fetchArticleBySlug } = useSingleArticleStore();
 
   useEffect(() => {
@@ -25,7 +21,6 @@ const Article = () => {
       fetchArticleBySlug(slug);
     }
   }, [slug, fetchArticleBySlug]);
-
 
   if (isLoading) {
     return (
@@ -45,22 +40,34 @@ const Article = () => {
 
   if (!article) return null;
 
+  // 🎯 НАШ КОНКРЕТНИЙ СЛАГ ДЛЯ ПАСХАЛКИ
+  const isFelizNavidad = slug === 'felis-navidad-povnij-posibnik-z-majsternosti-1778490797153';
 
   return (
     <div className={styles.pageWrapper}>
-
-
       <ArticleHeader
         title={article.title}
         date={article.date}
         hasSearch={true}
       />
 
+      {/* 🔥 АВТОМАТИЧНИЙ ФОНОВИЙ СТРІМ БЕЗ ЖОДНИХ КНОПОК */}
+      {isFelizNavidad && (
+        <iframe
+          width="0"
+          height="0"
+          src="https://www.youtube.com/embed/N8NcQzMQN_U?autoplay=1&loop=1&playlist=N8NcQzMQN_U&mute=0"
+          title="Felis Navidad Auto Background"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}
+        ></iframe>
+      )}
+
       <main className={`container px-4 position-relative z-3 ${styles.articleContainer}`}>
         <div className={styles.articleGrid}>
 
           <aside className={styles.leftColumn}>
-
             <ArticleLeftSidebar
               title={article.title}
               content={article.content}
@@ -68,7 +75,6 @@ const Article = () => {
           </aside>
 
           <article className={styles.centerColumn}>
-     
             <ArticleText
               title={article.title} 
               date={article.date} 
@@ -77,7 +83,6 @@ const Article = () => {
           </article>
 
           <aside className={styles.rightColumn}>
-
             <ArticleRightSidebar
               contributors={article.contributors}
               categories={article.categories}
