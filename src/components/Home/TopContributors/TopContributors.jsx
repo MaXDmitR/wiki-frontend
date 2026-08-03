@@ -58,7 +58,7 @@ const TopContributors = () => {
     fetchAndCalculateTopContributors();
   }, []);
 
-  if (isLoading) return <p className="text-white text-center">Завантаження рейтингу...</p>;
+  if (isLoading) return <p className="text-white text-center">Loading contributor rankings...</p>;
   if (topUsers.length === 0) return null;
 
   // Медальки для Топ-3

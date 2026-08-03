@@ -50,7 +50,7 @@ const useEditArticleStore = create((set, get) => ({
     // 1. Отримуємо дані про поточного користувача
     const currentUser = useAuthStore.getState().user;
     const originalArticle = useSingleArticleStore.getState().article;
-    const finalTitle = originalArticle?.title || "Оновлена стаття";
+    const finalTitle = originalArticle?.title || "Updated Article";
 
     // Визначаємо slug з URL
     const pathParts = window.location.pathname.split('/').filter(Boolean);
@@ -76,13 +76,13 @@ const useEditArticleStore = create((set, get) => ({
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Не вдалося завантажити зображення на Cloudinary");
+      if (!res.ok) throw new Error("Failed to upload image to Cloudinary");
       const result = await res.json();
       return result.data || result; // Артем повертає дані в полі data
     };
 
     try {
-      console.log("=== ПОЧАТОК ПІДГОТОВКИ ТА ЗАВАНТАЖЕННЯ МЕДІА ===");
+      console.log("=== STARTING MEDIA PREPARATION AND UPLOAD ===");
 
       // 1. Обробка медіа-блоків
       const cleanMediaBlocks = await Promise.all(mediaBlocks.map(async (block) => {
@@ -97,7 +97,7 @@ const useEditArticleStore = create((set, get) => ({
                   title: String(img.label || img.title || "")
                 };
               } catch (e) {
-                console.error("Помилка слайдера:", e);
+                console.error("SAVE ERROR - Slider upload failed:", e);
                 return null;
               }
             })
@@ -117,7 +117,7 @@ const useEditArticleStore = create((set, get) => ({
               description: String(block.description || "")
             };
           } catch (e) {
-            console.error("Помилка картинки:", e);
+            console.error("SAVE ERROR - Image upload failed:", e);
             return null;
           }
         }
@@ -147,7 +147,7 @@ const useEditArticleStore = create((set, get) => ({
         editorId: currentUser?.id 
       };
 
-      console.log("ВІДПРАВЛЯЄМО ПЕЙЛОАД НА БЕКЕНД:", payload);
+      console.log("SENDING PAYLOAD TO BACKEND:", payload);
 
       const response = await fetch(`https://wikipedianestjsbackend.onrender.com/article/update/${slug}`, {
         method: 'PATCH',
@@ -161,17 +161,17 @@ const useEditArticleStore = create((set, get) => ({
         throw new Error(Array.isArray(responseData.message) ? responseData.message.join("\n") : responseData.message);
       }
 
-      alert("Статтю успішно оновлено! Ваші зміни збережені в історії. 🎉");
+      alert("Article updated successfully! 🎉");
       window.location.href = `/article/${slug}`;
 
     } catch (error) {
       console.error("SAVE ERROR:", error);
       
       if (error.message.includes('401') || error.message.toLowerCase().includes('unauthorized')) {
-          alert("Ваша сесія закінчилася. Будь ласка, увійдіть знову.");
+          alert("you are not authorized to edit this article. You will be logged out.");
           useAuthStore.getState().logoutUser();
       } else {
-          alert(`Помилка:\n${error.message}`);
+          alert(`SAVE ERROR:\n${error.message}`);
       }
     }
   }

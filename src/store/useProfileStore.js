@@ -13,7 +13,7 @@ const useProfileStore = create((set) => ({
             const userRes = await fetch(`https://wikipedianestjsbackend.onrender.com/users/${email}`);
             const userData = await userRes.json();
 
-            if (!userRes.ok) throw new Error(userData.message || "Не вдалося знайти користувача");
+            if (!userRes.ok) throw new Error(userData.message || "Failed to fetch user profile");
 
             // 2. Завантажуємо статті з бекенду (підлаштовуємося під об'єкт з пагінацією { data: [...] })
             const articlesRes = await fetch(`https://wikipedianestjsbackend.onrender.com/article?limit=100`); // Просимо ліміт побільше для тесту
@@ -64,7 +64,7 @@ const useProfileStore = create((set) => ({
           body: formData,
         });
         
-        if (!mediaRes.ok) throw new Error("Помилка завантаження фото");
+        if (!mediaRes.ok) throw new Error("Failed to upload photo");
         
         const mediaData = await mediaRes.json();
         const uploadedAvatar = mediaData.data || mediaData;
@@ -89,7 +89,7 @@ const useProfileStore = create((set) => ({
         body: JSON.stringify(payload)
       });
 
-      if (!res.ok) throw new Error("Помилка оновлення даних профілю");
+      if (!res.ok) throw new Error("Failed to update profile data");
       
       const updatedUser = await res.json();
 

@@ -19,7 +19,7 @@ const useArticleStore = create((set) => ({
         set({ isLoading: false }); 
       }
     } catch (error) {
-      console.error('Помилка завантаження рандомної статті:', error);
+      console.error('Error downloading random article:', error);
       set({ isLoading: false });
     }
   },

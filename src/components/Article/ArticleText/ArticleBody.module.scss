@@ -18,7 +18,7 @@
 .editButton {
   width: 20px;
   height: 20px;
-  background: #E4E4E4;
+  background-color: #E4E4E4; /* Змінив background на background-color для ясності */
   border-radius: 7px;
 
   background-image: url('/icons/Edit.svg');
@@ -28,6 +28,22 @@
 
   border: none;
   cursor: pointer;
+  
+  /* 👇 ДОДАНО: Плавний перехід для всіх змін (тривалість 0.2 секунди) */
+  transition: all 0.2s ease-in-out;
+
+  /* 👇 ДОДАНО: Анімація при наведенні мишки */
+  &:hover {
+    background-color: #d4d4d4; /* Робимо фон трохи темнішим, щоб виділити кнопку */
+    transform: scale(1.15); /* Збільшуємо кнопку на 15% */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Додаємо м'яку тінь */
+  }
+
+  /* 👇 ДОДАНО: Ефект фізичного натискання (коли користувач клікає) */
+  &:active {
+    transform: scale(0.95); /* Кнопка злегка "продавлюється" */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тінь стає меншою */
+  }
 }
 
 .date {

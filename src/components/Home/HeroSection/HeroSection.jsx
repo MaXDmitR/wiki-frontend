@@ -28,7 +28,7 @@ const HeroSection = () => {
           setResults(data || []);
           setIsOpen(true);
         } catch (error) {
-          console.error("Помилка пошуку:", error);
+          console.error("SEARCH ERROR - Failed to fetch search results:", error);
         }
       } else {
         setResults([]);

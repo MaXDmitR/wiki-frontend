@@ -27,8 +27,8 @@ const useSingleArticleStore = create((set) => ({
         set({ article: data, isLoading: false }); 
       }
     } catch (error) {
-      console.error('Помилка завантаження статті:', error);
-      set({ error: 'Не вдалося завантажити статтю', isLoading: false });
+      console.error('SAVE ERROR - Failed to fetch article:', error);
+      set({ error: 'Failed to fetch article', isLoading: false });
     }
   },
 }));

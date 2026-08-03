@@ -24,9 +24,9 @@ const useAuthStore = create(
           });
           return true;
         } catch (error) {
-          console.error('Помилка логіну:', error);
+          console.error('Login error:', error);
           set({ 
-            error: error.response?.data?.message || 'Невірний логін або пароль', 
+            error: error.response?.data?.message || 'Invalid username or password', 
             isLoading: false 
           });
           return false;
@@ -92,7 +92,7 @@ const useAuthStore = create(
           
           const errorMessage = error.response?.data?.message 
             || error.response?.data?.error 
-            || 'Помилка при створенні акаунту';
+            || 'Error creating account';
 
           set({ 
             error: Array.isArray(errorMessage) ? errorMessage.join(', ') : errorMessage, 
